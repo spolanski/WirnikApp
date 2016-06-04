@@ -646,19 +646,11 @@ class Ui_MainWindow(object):
         self.calc_dir.setText(_translate("MainWindow", "Ścieżka do CCX", None))
         self.cgx_dir.setText(_translate("MainWindow", "Ścieżka do CGX", None))
 
-#==============================================================================
-#         if sys.platform == 'linux' or sys.platform == 'linux2':
-#             gm_dir = str(os.getcwd()) + '/gmsh'
-#         elif sys.platform == 'win32':
-#             gm_dir = str(os.getcwd()) + '\gmsh'
-#         else:
-#==============================================================================
-        gm_dir = str(os.getcwd())
-        calc = gm_dir + "\calc\\"
+        gm_dir = "gmsh"
         self.GMSH_DIR.setText(_translate("MainWindow", (gm_dir+'\gmsh'), None))
 
-        self.CALCULIX_DIR.setText(_translate("MainWindow", (calc + 'ccx29'), None))
-        self.CGX_DIR.setText(_translate("MainWindow", (calc + 'cgx'), None))
+        self.CALCULIX_DIR.setText(_translate("MainWindow", ('ccx'), None))
+        self.CGX_DIR.setText(_translate("MainWindow", ('cgx'), None))
         self.toolButton.setText(_translate("MainWindow", "...", None))
         self.toolButton_2.setText(_translate("MainWindow", "...", None))                
         self.toolButton_3.setText(_translate("MainWindow", "...", None))
