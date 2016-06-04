@@ -1,12 +1,14 @@
 # WirnikApp
-Projekt stworzony na potrzeby pracy magisterskiej
+Projekt stworzony na potrzeby mojej pracy magisterskiej.
 
 Potrzebne do uruchomienie skryptu:
-
 - komenda -> python vtkView.py
-
-- GMSH 2.12 (folder Software)
+- GMSH 2.12
 - Calculix 2.7
+
+Sposób otwierania programów w programie przedstawiony na video:
+[a link](https://youtu.be/xUxkJkCM8zA)
+[a link](https://youtu.be/viwu7dmtKDI)
 
 Windows:
 - zainstaluj Python(x,y)
@@ -21,5 +23,5 @@ Dobrym nawykiem jest monitorowanie konsoli Python'a oraz Menedzera Zadan(aktualn
 
 *** Uwaga dla uzytkownikow Windows'a ***
 
-Aby wylaczyc graficzne srodowisko Calculixa nalezy najechac kursorem myszki na okienko z rezultatami i wpisac komende 'quit'. W przeciwnym razie, program cgx.exe bedzie widnial w Menedżerze Zadań. Problem nie wystepuje podczas pracy w srodowisku Linux.
+Aby wyłączyć graficzne środowisko Calculixa należy najechać kursorem myszki na okienko z rezultatami i wpisać komendę 'quit' lub wybrać opcję QUIT z menu. W przeciwnym razie, program cgx.exe będzie widniał w menedżerze zadań. Problem nie występuje podczas pracy w środowisku Linux.
 
