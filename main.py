@@ -138,8 +138,8 @@ def main(menu,frt):
         gmsh.cmd(solve)
         
         # Wyswietl rozwiazanie w Calculixie
-        #show = cgx_dir + ' ' + wd + '/ccxInp.frd'
-        #gmsh.cgx(show)
+        show = cgx_dir + ' ' + wd + '/ccxInp.frd'
+        gmsh.cgx(show)
     
     return 1
 
