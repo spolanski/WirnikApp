@@ -49,7 +49,7 @@ def main(menu,frt):
     if gmsh_dir == '...':
         gmsh_dir = 'gmsh'
     
-    ccx_dir = str(d['CALCULIX_DIR'])
+    ccx_dir = str(d['CCX_DIR'])
     if ccx_dir == '...':
         ccx_dir = 'ccx'
     
