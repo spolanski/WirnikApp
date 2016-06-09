@@ -10,10 +10,7 @@ import gPunktyWirnika as gPW
 import operacjeInp as oI
 import os
 
-def main(menu,frt):
-    d = menu.dane    
-    wd = os.getcwd()
-    
+def posprzatajSmieci():
     def usunPliki(nazwa):
         try:
             os.remove(nazwa)
@@ -26,12 +23,20 @@ def main(menu,frt):
     usunPliki('ccxInp.inp')
     usunPliki('ccxInp.sta')
     usunPliki('spooles.out')
+    
+def main(menu,frt):
+    d = menu.dane    
+    wd = os.getcwd()
+    posprzatajSmieci()
+    for i in d.values():
+        print type(i)
+
 
 #==============================================================================
 #    Pobierz dane z GUI
 #==============================================================================
-    
-    alfa = float(d['alfa'])
+
+    alfa = d['alfa']
     r1 = float(d['srOtworu'])/2.
     r2 = float(d['srLop'])/2.
     r3 = float(d['srZewn'])/2.

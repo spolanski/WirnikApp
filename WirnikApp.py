@@ -34,8 +34,8 @@ class WirnikApp(QtGui.QMainWindow):
         self.setup(data_dir)
 
     def setup(self, data_dir):
-        import appGui
-        self.ui = appGui.Ui_MainWindow()
+        import WirnikAppGui
+        self.ui = WirnikAppGui.Ui_MainWindow()
         self.ui.setupUi(self)
         self.vtk_widget = VtkWirnik(self.ui.vtk_panel, data_dir)
         self.ui.vtk_layout = QtGui.QHBoxLayout()
@@ -96,35 +96,34 @@ class VtkWirnik(QtGui.QFrame):
         self.interactor.Initialize()
         self.interactor.Start()
     
-#==============================================================================
-#     def usunSmieci(symulacja = False):        
-#         def usunPliki(nazwa):
-#             try:
-#                 os.remove(nazwa)
-#             except OSError:
-#                 pass
-#         smieci = ['wirnik.wrl','wirnik.msh','wirnik.geo_unrolled',
-#                   'LloydInit.pos']
-#         
-#         for i in smieci: usunPliki(i)
-#         if symulacja == True:
-#             symulacja = ['ccxInp.cvg','ccxInp.dat','ccxInp.frd','ccxInp.inp',
-#                          'ccxInp.sta','spooles.out']
-#             for i in symulacja: usunPliki(i)
-#==============================================================================
+    def dostosujWyniki(self,dane):
+        temp = {}
+        for key, item in dane.iteritems():
+            if key[0] == 'n':
+                temp[key[2:]] = eval(item)
+            elif key[0] == 's':
+                temp[key[2:]] = str(item)
         
-    def zmienAktora(self, menu):
-        import senderBrain       
-        senderBrain.main(menu, 'stl')
+        temp['r1'] = temp['r1']/2.
+        temp['r2'] = temp['r2']/2.
+        temp['r3'] = temp['r3']/2.
+        temp['r4'] = temp['r4']/2.
 
-        
+        return temp
+    
+    def zmienAktora(self, menu):
+        dane = self.dostosujWyniki(menu.dane)
+        import Messenger
+        Messenger.main(dane, 'stl')        
         self.source.Modified()
         self.render_window.Render()
 
     def policz(self, menu):
-        import main
-        main.main(menu, 'inp')
-        
+        dane = self.dostosujWyniki(menu.dane)
+        import Messenger
+        Messenger.main(dane, 'inp')
+        #import main
+        #main.main(menu, 'inp')       
 
 if __name__ == "__main__":
     path = os.path.abspath(os.path.dirname(sys.argv[0]))
