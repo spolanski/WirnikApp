@@ -97,6 +97,7 @@ class VtkWirnik(QtGui.QFrame):
         self.interactor.Start()
     
     def dostosujWyniki(self,dane):
+        """Tutaj nastepuje zmiana wynikow z QtString na float/str"""
         temp = {}
         for key, item in dane.iteritems():
             if key[0] == 'n':
@@ -121,9 +122,7 @@ class VtkWirnik(QtGui.QFrame):
     def policz(self, menu):
         dane = self.dostosujWyniki(menu.dane)
         import Messenger
-        Messenger.main(dane, 'inp')
-        #import main
-        #main.main(menu, 'inp')       
+        Messenger.main(dane, 'inp')      
 
 if __name__ == "__main__":
     path = os.path.abspath(os.path.dirname(sys.argv[0]))

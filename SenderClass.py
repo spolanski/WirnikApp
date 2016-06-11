@@ -13,7 +13,7 @@ import os, sys
 #==============================================================================
 class SenderBrain(object):
     
-    def __init__(self,Sender,part):#,wd,gmsh,ccx_dir,cgx_dir):
+    def __init__(self,Sender,part):
         self.part = part
         self.nazwa = part['nazwa']
         self.wd = os.getcwd()
@@ -35,8 +35,8 @@ class SenderBrain(object):
                              stderr=subprocess.STDOUT)
         if output:
             for line in iter(p.stdout.readline, ''):
-                print line,          # print to stdout immediately
-                lines.append(line)   # capture for later
+                #print line,
+                lines.append(line)
             p.stdout.close()
             p.wait()
         return True
@@ -104,7 +104,10 @@ class SenderBrain(object):
             pass
 
 class Geometry(object):
-    pass
+    def __init__(self): pass
+        
+    def dodajCeche(self,cecha):
+        self.cecha = cecha
 
 class Bag(object):
     def __init__(self):

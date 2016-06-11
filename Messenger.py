@@ -9,8 +9,6 @@ import gPunktyWirnika as gPW
 import operacjeInp as oI
 import os
 
-
-
 def posprzatajSmieci(Brain):
     Brain.usunPliki('ccxInp.cvg')
     Brain.usunPliki('ccxInp.dat')
@@ -53,18 +51,21 @@ def main(dane,frt):
 #==============================================================================
     # Testuj dane
     Goniec.testujDane()
-    W = Goniec.Bag.Geo
-    I = Goniec.Bag.Info
+    Geo = Goniec.Bag.Geo
+    Info = Goniec.Bag.Info
 #==============================================================================
 #   Wyslij parametry do funkcji obliczajacych polozenie punktow geometrii
 #==============================================================================
-    kLop_xyz, kolo_BC = gPW.punktyWylotu(W.alfa,W.b1,W.b2,W.r2,W.r3,
-                                         W.r4,W.h1,W.h2,W.h3,W.R)
+    #kLop_xyz, kolo_BC = gPW.punktyWylotu(G.alfa,G.b1,G.b2,G.r2,G.r3,
+    #                                    G.r4,G.h1,G.h2,G.h3,G.R)
+    import geometriaWirnika
+    Geo = geometriaWirnika.oblicz(Geo)
+    
 #==============================================================================
 #   Stworz geometrie na podstawie obliczonych parametrow    
 #==============================================================================
-    geoWirnik, ccxText, stMesh = geomGmsh.stworz(W.r1,W.il_l,kLop_xyz,
-                                                 kolo_BC,I['factor'],frt)
+    geoWirnik, ccxText, stMesh = geomGmsh.stworz(Geo.r1,Geo.il_l,Geo.kLop_xyz,
+                                                 Geo.kolo_BC,Info['factor'],frt)
     
 #==============================================================================
 #   Wyslij geometrie do programu GMSH
@@ -84,10 +85,10 @@ def main(dane,frt):
     if frt == 'inp':
         posprzatajSmieci(Brain)
         ccxText['nazwa'] = wd + '/' + geoWirnik['nazwa']
-        ccxText['obroty'] = float(I['obroty'])
-        ccxText['gestosc'] = I['gestosc']
-        ccxText['poiss'] = I['poiss']
-        ccxText['myoung'] = I['myoung']
+        ccxText['obroty'] = float(Info['obroty'])
+        ccxText['gestosc'] = Info['gestosc']
+        ccxText['poiss'] = Info['poiss']
+        ccxText['myoung'] = Info['myoung']
         oI.mesh(ccxText, stMesh)
             
 #==============================================================================
