@@ -13,14 +13,15 @@ import os, sys
 #==============================================================================
 class SenderBrain(object):
     
-    def __init__(self,Sender,part):
-        self.part = part
-        self.nazwa = part['nazwa']
+    def __init__(self,Sender):
+        self.part = Sender.Info['Obiekt']
+        self.nazwa = self.part['nazwa']
+        
+        self.gmsh = Sender.Info['GMSH_DIR']
+        self.ccx_dir = Sender.Info['CCX_DIR']
+        self.cgx_dir = Sender.Info['CGX_DIR']
+        
         self.wd = os.getcwd()
-        Info = Sender.Bag.Info
-        self.gmsh = Info['GMSH_DIR']
-        self.ccx_dir = Info['CCX_DIR']
-        self.cgx_dir = Info['CGX_DIR']
               
         if sys.platform == 'linux' or sys.platform == 'linux2':
             self.SHELL = True
@@ -35,7 +36,7 @@ class SenderBrain(object):
                              stderr=subprocess.STDOUT)
         if output:
             for line in iter(p.stdout.readline, ''):
-                #print line,
+                print line,
                 lines.append(line)
             p.stdout.close()
             p.wait()
@@ -102,33 +103,40 @@ class SenderBrain(object):
             os.remove(nazwa)
         except OSError:
             pass
+    def przygotujSymulacje(self):
+        self.usunPliki('ccxInp.cvg')
+        self.usunPliki('ccxInp.dat')
+        self.usunPliki('ccxInp.frd')
+        self.usunPliki('ccxInp.inp')
+        self.usunPliki('ccxInp.sta')
+        self.usunPliki('spooles.out')
 
 class Geometry(object):
     def __init__(self): pass
         
     def dodajCeche(self,cecha):
         self.cecha = cecha
-
-class Bag(object):
-    def __init__(self):
-        self.Geo = Geometry()
-        self.Info = {}
-        
+    def __str__(self):
+        t1 = 'Informacje zawarte w geometrii:\n'
+        for key, item in self.__dict__.iteritems():
+            t1 += '- ' + str(key) + ' - ' + str(item)+'\n'
+        return t1
+       
 class Sender(object):
 
     def __init__(self):
-        #self.Brain = SenderBrain()
-        self.Bag = Bag()
+        self.Geo = Geometry()
+        self.Info = {}
     
     def pobierzDane(self,dane):
         for key, item in dane.iteritems():
             if type(item) != str:
-                exec("self.Bag.Geo.%s = %s" % (key,item))
+                exec("self.Geo.%s = %s" % (key,item))
             else:
-                self.Bag.Info[key] = item
+                self.Info[key] = item
         
     def testujDane(self):
-        G = self.Bag.Geo
+        G = self.Geo
         if not (G.r1 <= G.r2 <= G.r3):
             text = "Srednica otworu, srednica do lopatek i srednica zewnetrzna \
                 jest zle dobrana"
