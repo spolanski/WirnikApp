@@ -115,7 +115,7 @@ def przygotujPlik(Goniec,frt):
     # tworzenia rozpocznij z rotacja wstepna rowna katowi theta
     st = p.cnt_st()
     malyPkt = [0.0,-Geo.r1]
-    p.rotacja(malyPkt,il_l,0.0,kat_theta)
+    p.rotacja(malyPkt,il_l,theta = kat_theta,z = 0.0)
     pkty = p.cnt_fnd(st)
     
     # Stworz okregi na podstawie stworzonych wczesniej punktow

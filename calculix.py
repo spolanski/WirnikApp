@@ -8,7 +8,9 @@ programu Calculix
 """
 import numpy as np
 import os
+
 def zmianaElem(mesh, stMesh):
+    """Funkcja zmienia forme zapisu elementow na odpowiednia dla Calculixa"""
     np.set_printoptions(threshold='nan')
     quad = []    
     for i in stMesh:
@@ -43,6 +45,7 @@ def zmianaElem(mesh, stMesh):
     return element
 
 def zmianyWez(nodes):
+    """Funkcja zmienia forme zapisu wezlow na odpowiednia dla Calculixa"""
     nodes = nodes.split("*NODE\n")
     nodes[1] = nodes[1].replace("\n",", ")
     nodes[1] = nodes[1].split(", ")[:-1]
@@ -71,30 +74,37 @@ def zmianyWez(nodes):
 def konwertujSiatke(Goniec):
     """Funkcja pozwala na przygotowanie pliku .inp stworzonego w programie
     GMSH tak aby mogl zostac uzyty w Calculixie. Funckcja dziala poprawnie
-    dla elementow typu SHELL"""
+    dla elementow typu SHELL."""
     
+    # Zdefiniuj zmienne
     wd = os.getcwd()
     nazwaPliku = wd + '/' + Goniec.Info['Obiekt']['nazwa']
     indSet = Goniec.Info['indSet']
     stMesh = Goniec.Info['structMesh']
     
+    # Wczytaj siatke z pliku
     with open(nazwaPliku+'.inp','r') as f:
         txt = f.read()
 
+    # Podziel dane na czesc zawierajaca elementy i wezly
     nodes, els = txt.split("******* E L E M E N T S *************")
+    # Przekonwertuj czesc odpowiedzialna za wezly    
     nodes = zmianyWez(nodes)
     
+    # Podziel czesc opisujaca elementy na elementy 1D oraz 2D
     oneD, twoD = els.split("*ELEMENT, type=CPS6, ELSET=Surface1",1)
     twoD = "*ELEMENT, type=CPS6, ELSET=Surface1" + twoD
     
     twoD, sets = twoD.split("*ELSET",1)
+    # Zamien nazwe typu elementow z 'CPS6' na 'S6'
     twoD = twoD.replace("CPS6","S6")
     twoD = twoD.split("*ELEMENT")[1:]
     for i in range(len(twoD)): twoD[i] = "*ELEMENT" + twoD[i]
+    # Przekonwertuj czesc odpowiedzialna za elementy     
     twoD = zmianaElem(twoD, stMesh)
     
+    # Czesc w ktorej przygotowywane zbiory elementow
     elSet, nSet = sets.split("*NSET",1)
-
     elSet = elSet.split("*ELSET")
     allSet = ""
     temp = indSet.values()
@@ -106,6 +116,7 @@ def konwertujSiatke(Goniec):
             if allInd in i:
                 allSet = allSet + "*ELSET" + i
                 break
+    # Czesc w ktorej przygotowywane zbiory wezlow 
     nSet = nSet.split("*NSET")
     lineSet = ""
     lineInd = "PhysicalLine" + str(indSet['wlot'])   
@@ -115,15 +126,19 @@ def konwertujSiatke(Goniec):
             lineSet = "*NSET" + i
             break
     
+    # Przygotuj caly tekst zawierajacy siatke elementow skonczonych
     text = nodes + twoD + allSet + lineSet
     
+    # Zapisz plik zawierajacy siatke elementow skonczonych
     with open(nazwaPliku+'.inp','w') as f:
         f.write(text)
 
 def stworzPlikWsadowy(Goniec):
+    """Funkcja sluzaca tworzeniu pliku wsadowego do Calculixa """
     Info = Goniec.Info
-    Info['obroty'] = str((float(Info['obroty']) *((2.0*np.pi)/60.))**2.)
-    inpFile = """*INCLUDE, INPUT=NAZWA.inp
+    
+    inpFile = """
+*INCLUDE, INPUT=NAZWA.inp
 *Material, name=Stal
 *Density
 GESTOSC,
@@ -159,6 +174,9 @@ U, RF
 S,
 *End Step
 """
+    Info['obroty'] = str((float(Info['obroty']) *((2.0*np.pi)/60.))**2.)
+    
+    # Podmien wartosci w pliku wsadowym na wartosci pobrane z GUI, oraz GMSHa
     inpFile = inpFile.replace("GESTOSC",str(Info['gestosc']))
     inpFile = inpFile.replace("MYOUNG",str(Info['myoung']))
     inpFile = inpFile.replace("POISS",str(Info['poiss']))
@@ -173,5 +191,6 @@ S,
     inpFile = inpFile.replace("OBROTY",str(Info['obroty']))
     inpFile = inpFile.replace("NAZWA",str(Info['Obiekt']['nazwa']))
     
+    # Stworz plik wsadowy do Calculixa
     with open('ccxInp.inp','w') as f:
         f.write(inpFile)
