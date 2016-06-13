@@ -2,7 +2,7 @@
 Projekt stworzony na potrzeby mojej pracy magisterskiej.
 
 Potrzebne do uruchomienie skryptu:
-- komenda -> python vtkView.py
+- komenda -> python wirnikApp.py
 - GMSH 2.12
 - Calculix 2.7
 
