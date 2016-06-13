@@ -12,7 +12,7 @@ Sposób otwierania programów w programie przedstawiony na video:
 
 Windows:
 - zainstaluj Python(x,y)
-- uruchom skrypt vtkView.py
+- uruchom skrypt wirnikApp.py
 
 Linux:
 - potrzebne moduly: python-vtk, subprocess, numpy, scipy, pyqt4
