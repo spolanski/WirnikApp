@@ -1,5 +1,9 @@
-# WirnikApp
+*********
+WirnikApp
+*********
+
 Projekt stworzony na potrzeby mojej pracy magisterskiej.
+########################################################
 
 Potrzebne do uruchomienie skryptu:
 - komenda -> python wirnikApp.py
@@ -7,8 +11,8 @@ Potrzebne do uruchomienie skryptu:
 - Calculix 2.7
 
 Sposób otwierania programów w programie przedstawiony na video:
-- [Uruchamianie programu pod Linuxem](https://youtu.be/xUxkJkCM8zA)
-- [Uruchamianie programu pod Windowsem](https://youtu.be/viwu7dmtKDI)
+- 'Uruchamianie programu pod Linuxem <https://youtu.be/xUxkJkCM8zA>'
+- 'Uruchamianie programu pod Windowsem <https://youtu.be/viwu7dmtKDI>'
 
 Windows:
 - zainstaluj Python(x,y)
