@@ -6,13 +6,13 @@ Projekt stworzony na potrzeby mojej pracy magisterskiej.
 ########################################################
 
 Potrzebne do uruchomienie skryptu:
-- komenda -> python wirnikApp.py
-- GMSH 2.12
-- Calculix 2.7
+	- komenda -> python wirnikApp.py
+	- GMSH 2.12
+	- Calculix 2.7
 
 Sposób otwierania programów w programie przedstawiony na video:
-- 'Uruchamianie programu pod Linuxem <https://youtu.be/xUxkJkCM8zA>'_
-- 'Uruchamianie programu pod Windowsem <https://youtu.be/viwu7dmtKDI>'_
+	- 'Uruchamianie programu pod Linuxem <https://youtu.be/xUxkJkCM8zA>'_
+	- 'Uruchamianie programu pod Windowsem <https://youtu.be/viwu7dmtKDI>'_
 
 Windows:
 - zainstaluj Python(x,y)
