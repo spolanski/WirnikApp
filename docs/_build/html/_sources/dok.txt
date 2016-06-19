@@ -1,4 +1,5 @@
 Dokumentacja
 ============
 
-Ten plik będzie zawierał dokumentacje oprogramowania.
+.. automodule:: messenger
+	:members:
