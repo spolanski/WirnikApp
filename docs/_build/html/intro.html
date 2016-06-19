@@ -1,5 +1,7 @@
 
 
+
+
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -28,10 +30,12 @@
   
 
   
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  
 
   
     <link rel="top" title="WirnikApp 1.0.0 - dokumentacja" href="index.html"/>
-        <link rel="next" title="Dokumentacja" href="dok.html"/>
+        <link rel="next" title="Opis struktury programu" href="dok.html"/>
         <link rel="prev" title="Witam w dokumentacji WirnikApp!" href="index.html"/> 
 
   
@@ -73,7 +77,12 @@
           
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">Wprowadzenie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dok.html">Dokumentacja</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dok.html">Opis struktury programu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opis.html">Opis użytych funkcji i klas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="opis.html#module-wirnikApp">wirnikApp.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opis.html#module-messenger">messenger.py</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a></li>
 <li class="toctree-l1"><a class="reference internal" href="download.html">Pobierz!</a></li>
 </ul>
@@ -135,7 +144,8 @@
 </dd>
 </dl>
 <p>W przypadku próby uruchomienia skryptu pod systemem Linux, instalacja repozytoriów polega na pobraniu powyższych repozytoriów. Uruchomienie WirnikApp na systemie Windows sprawia więcej kłopotów, gdyż instalacja modułu &#8216;Python-Vtk&#8217; jest bardziej skomplikowana. Najłatwiejszym sposobem na ominięcie tej niedogodności jest instalacja gotowego zestawu oprogramowania Python(x,y). Pakiet ten zawiera wszystkie wymienione moduły, oraz wiele innych poszerzających zastosowanie Python&#8217;a.</p>
-<p>Program WirnikApp uruchamiany jest poprzez otwarcie lini komend w folderze głównym aplikacji oraz wpisanie komendy <em>python wirnikApp</em>. W momencie pokazania się menu głównego użytkownik ma możliwość zdefiniowania geometrii wirnika, jakości siatki elementów skończonych czy rodzaju materiału. Jeśli WirnikApp został uruchomiony pod systemem Linux wtedy pozostawienie wartości domyślnych w rubrykach zawierających lokalizacje GMSHa i Calculixa będzie funkcjonowało poprawnie. Jest tak, dlatego iż lokalizacja zainstalowanych programów w systemie Linux jest dostępna bezpośrednio po wpisaniu nazwy programu do lini komand. Podczas próby uruchomienia aplikacj pod systemem Windows, lokalizacja preprocessor&#8217;a i solver&#8217;a musi zostać zdefiniowana przed uruchomieniem polecania wizualizacji lub obliczeń.</p>
+<p>Program WirnikApp uruchamiany jest poprzez otwarcie lini komend w folderze głównym aplikacji oraz wpisanie komendy <em>python wirnikApp</em>. W momencie pokazania się menu głównego użytkownik ma możliwość zdefiniowania geometrii wirnika, jakości siatki elementów skończonych czy rodzaju materiału. Jeśli WirnikApp został uruchomiony pod systemem Linux wtedy pozostawienie wartości domyślnych w rubrykach zawierających lokalizacje GMSHa i Calculixa będzie funkcjonowało poprawnie. Jest tak, dlatego iż lokalizacja zainstalowanych programów w systemie Linux jest dostępna bezpośrednio po wpisaniu nazwy programu do linii komand. Podczas próby uruchomienia aplikacji pod systemem Windows, lokalizacja preprocessor&#8217;a i solver&#8217;a musi zostać zdefiniowana przed uruchomieniem polecania wizualizacji lub obliczeń.</p>
+<p>W celu wizualizacji geometrii wirnika stworzonego w oparciu o zdefiniowane uprzednio dane należy kliknąć przycisk &#8216;Stwórz!&#8217;. Jak tylko przycisk zostanie naciśnięty,</p>
 <div class="align-center figure" id="id1">
 <a class="reference internal image-reference" href="_images/Diagram.png"><img alt="Diagram" src="_images/Diagram.png" /></a>
 <p class="caption"><span class="caption-text">Diagram przedstawiający w jaki sposób działa aplikacja.</span></p>
@@ -148,7 +158,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dok.html" class="btn btn-neutral float-right" title="Dokumentacja" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dok.html" class="btn btn-neutral float-right" title="Opis struktury programu" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Witam w dokumentacji WirnikApp!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

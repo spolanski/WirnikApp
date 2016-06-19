@@ -17,7 +17,9 @@ Zawartość:
 
    intro
    dok
+   opis
    gallery
    download
+
 
 

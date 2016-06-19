@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+'wirnikApp.py' jest plikiem, który należy skompilować w celu uruchomienia aplikacji. Zawiera on klasę odpowiedzialną za tworzenie interfejsu graficznego, w tym przede wszystkim widget'u biblioteki VTK. Dzięki temu obiektowi możliwa jest wizualizacja geometrii wirnika.
+"""
 import os, sys
 import vtk
 from PyQt4 import QtCore, QtGui
 from vtk.qt4.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 
 #==============================================================================
-# Sprobuj zaladowac kodowanie Unicode
+# Załaduj kodowanie odpowiednie dla języka polskiego
 #==============================================================================
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -24,18 +27,23 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class WirnikApp(QtGui.QMainWindow):
-    """Klasa potrzebna do stworzenia aplikacji okienkowej"""
-    def __init__(self, data_dir):
+    """Główna klasa zawierająca kod potrzebny do inicjalizacji programu. Wraz ze stworzeniem obiektu niniejszej klasy, wygląd menu graficznego zostaje określony dzięki wyołaniu funkcji :func:`Ui_MainWindow()` z pliku wirnikAppGui.py
+    
+    :param parent: obiekt głównego okna z PyQt4
+    :type parent: QtGui.QMainWindow
+    """
+    
+    def __init__(self):
         super(WirnikApp, self).__init__()
         self.vtk_widget = None
         self.ui = None
-        self.setup(data_dir)
+        self.setup()
 
-    def setup(self, data_dir):
+    def setup(self):
         import wirnikAppGui
         self.ui = wirnikAppGui.Ui_MainWindow()
         self.ui.setupUi(self)
-        self.vtk_widget = VtkWirnik(self.ui.vtk_panel, data_dir)
+        self.vtk_widget = WirnikVtk(self.ui.vtk_panel)
         self.ui.vtk_layout = QtGui.QHBoxLayout()
         self.ui.vtk_layout.addWidget(self.vtk_widget)
         self.ui.vtk_layout.setContentsMargins(0, 0, 0, 0)
@@ -48,11 +56,15 @@ class WirnikApp(QtGui.QMainWindow):
     def initialize(self):
         self.vtk_widget.start()
 
-class VtkWirnik(QtGui.QFrame):
-    """Klasa dzieki ktorej mozliwe jest przedstawienie plikow 
-    z rozszerzeniem .stl"""
-    def __init__(self, parent, data_dir):
-        super(VtkWirnik, self).__init__(parent)
+class WirnikVtk(QtGui.QFrame):
+    """
+    Dzięki obiektowi tej klasy możliwa jest wizualizacja geometrii zawartej w pliku *stl*. Co więcej, zaimplementowane metody pozwalają na komunikację z skryptami odpowiedzialnymi za komunikację z GMSH'em, oraz Calculix'em.
+
+    :param parent: obiekt okienka, w którym przedstawiona zostanie geometria wirnika
+    :type parent: QtGui.QFrame 
+    """
+    def __init__(self, parent):
+        super(WirnikVtk, self).__init__(parent)
         
         interactor = QVTKRenderWindowInteractor(self)
         self.layout = QtGui.QHBoxLayout()
@@ -102,14 +114,24 @@ class VtkWirnik(QtGui.QFrame):
         self.interactor.Start()
     
     def zmienWizualizacje(self, menu):
-        """Metoda sluzaca do zmiany wizualizacji obiektu"""
+        """
+        Metoda dzięki której tworzony jest nowy plik *stl* na podstawie dostarczonych przez użytkownika parametrów. Dzięki zaimplementowanemu mechanizmowi, po wykonaniu operacji okienko z geometrią wirnika zostaje uaktualnione. :func:`zmienWizualizacje` zostaje wykonana jak tylko użytkownik naciśniej przycisk 'Stwórz!' w GUI.
+
+        :param dane: kontener zawierający dane pobrane z GUI. Wartości w kontenerze zapisane są w formacie klucz (typ string) : wartość (typ string).
+        :type dane: dictionary
+        """
         import messenger
         messenger.main(menu.dane, 'stl')        
         self.source.Modified()
         self.render_window.Render()
 
     def zalaczSymulacje(self, menu):
-        """Metoda sluzaca do """
+        """
+        Dzięki niniejszej metodzie możliwe jest uruchomienie obliczeń numerycznych, w oparciu o parametry podane przez użytkownika. Funkcja :func:`zalaczSymulacje` wykonywana jest w momencie naciśnięcia przycisku 'Oblicz'
+
+        :param dane: kontener zawierający dane pobrane z GUI. Wartości w kontenerze zapisane są w formacie klucz (typ string) : wartość (typ string).
+        :type dane: dictionary 
+        """
         import messenger
         messenger.main(menu.dane, 'inp')      
 
@@ -117,7 +139,7 @@ if __name__ == "__main__":
     path = os.path.abspath(os.path.dirname(sys.argv[0]))
     os.chdir(path)
     app = QtGui.QApplication([])
-    main_window = WirnikApp("volume")
+    main_window = WirnikApp()
     main_window.show()
     main_window.initialize()
     app.exec_()

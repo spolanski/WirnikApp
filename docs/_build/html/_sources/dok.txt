@@ -1,5 +1,7 @@
-Dokumentacja
-============
+=======================
+Opis struktury programu
+=======================
 
-.. automodule:: messenger
-	:members:
+Program jest wykonywany według schematu przedstawionego poniżej.
+
+
