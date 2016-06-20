@@ -133,7 +133,7 @@ todo_include_todos = False
 
 # Add any paths that contain custom themes here, relative to this directory.
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'default'
 
 
 #html_theme_path = [cloud_sptheme.get_html_theme_path()]
