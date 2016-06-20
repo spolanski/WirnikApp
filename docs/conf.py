@@ -15,6 +15,18 @@
 import sys
 import os
 import shlex
+from mock import Mock as MagicMock    
+    
+class Mock(MagicMock):    
+    @classmethod    
+    def __getattr__(cls, name):   
+            return Mock()   
+    
+MOCK_MODULES = ['vtk',    
+    'PyQt4', 'vtk.qt4.QVTKRenderWindowInteractor',    
+    'numpy', 'subprocess', 'sympy', 'sympy.geometry',   
+    'scipy.optimize']   
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -41,9 +53,7 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.pngmath',
-    'sphinx.ext.ifconfig',
-    'matplotlib.sphinxext.only_directives',
-    'matplotlib.sphinxext.plot_directive',
+    'sphinx.ext.ifconfig'
     ]
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
