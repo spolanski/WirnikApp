@@ -16,6 +16,7 @@ Zawartość:
    :maxdepth: 2
 
    intro
+   dok
    gallery
    download
 
