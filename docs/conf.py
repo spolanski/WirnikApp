@@ -15,6 +15,18 @@
 import sys
 import os
 import shlex
+from mock import Mock as MagicMock    
+    
+class Mock(MagicMock):    
+    @classmethod    
+    def __getattr__(cls, name):   
+            return Mock()   
+    
+MOCK_MODULES = ['vtk',    
+    'PyQt4', 'vtk.qt4.QVTKRenderWindowInteractor',    
+    'numpy', 'subprocess', 'sympy', 'sympy.geometry',   
+    'scipy.optimize']   
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 from mock import Mock as MagicMock    
       
