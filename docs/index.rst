@@ -16,5 +16,8 @@ Zawartość:
    :maxdepth: 2
 
    intro
-
+   dok
+   opis
+   gallery
+   download
 
