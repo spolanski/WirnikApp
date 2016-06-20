@@ -15,12 +15,7 @@
 import sys
 import os
 import shlex
-import mock
- 
-MOCK_MODULES = ['numpy', 'scipy', 'matplotlib', 'matplotlib.pyplot', 'scipy.interpolate',
-    'vtk', 'PyQt4', 'vtk.qt4.QVTKRenderWindowInteractor', 'itertools', 'subprocess',
-    'sympy', 'sympy.geometry', 'scipy.optimize','shutil']
-for mod_name in MOCK_MODULES: sys.modules[mod_name] = mock.Mock()
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -114,8 +109,8 @@ exclude_patterns = ['_build']
 #show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
-#pygments_style = 'manni'
-#pygments_style = 'sphinx'
+pygments_style = 'manni'
+
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
 
@@ -133,7 +128,7 @@ todo_include_todos = False
 
 # Add any paths that contain custom themes here, relative to this directory.
 
-html_theme = 'default'
+html_theme = 'sphinx_rtd_theme'
 
 
 #html_theme_path = [cloud_sptheme.get_html_theme_path()]
