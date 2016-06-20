@@ -21,5 +21,3 @@ Zawartość:
    gallery
    download
 
-
-
