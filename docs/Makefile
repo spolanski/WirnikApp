@@ -123,11 +123,6 @@ latex:
 	      "(use \`make latexpdf' here to do that automatically)."
 
 latexpdf:
-	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
-	@echo "Running LaTeX files through pdflatex..."
-	$(MAKE) -C $(BUILDDIR)/latex all-pdf
-	@echo "pdflatex finished; the PDF files are in $(BUILDDIR)/latex."
-latexpdf:
     $(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(PDFBUILDDIR)/latex
     #                                          ^^^
     @echo "Running LaTeX files through pdflatex..."
@@ -136,6 +131,7 @@ latexpdf:
     cp $(PDFBUILDDIR)/latex/*.pdf $(PDF)
     #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     @echo "pdflatex finished; see $(PDF)"
+
 latexpdfja:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo "Running LaTeX files through platex and dvipdfmx..."
