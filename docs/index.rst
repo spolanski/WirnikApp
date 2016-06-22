@@ -15,9 +15,4 @@ Zawartość:
 .. toctree::
    :maxdepth: 2
 
-   intro
-   dok
-   opis
-   gallery
-   download
-
+   includeme
