@@ -16,18 +16,6 @@ import sys
 import os
 import shlex
 
-from mock import Mock as MagicMock
-
-class Mock(MagicMock):
-    @classmethod
-    def __getattr__(cls, name):
-            return Mock()
-
-MOCK_MODULES = ['vtk',
-    'PyQt4', 'vtk.qt4.QVTKRenderWindowInteractor',
-    'numpy', 'subprocess', 'sympy', 'sympy.geometry',
-    'scipy.optimize']
-sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -41,20 +29,21 @@ sys.path.insert(0, os.path.abspath('/home/slawek/Pulpit/Spyder/00_WirnikApp/wirn
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-#sys.path.append(os.path.abspath('/home/slawek/Pulpit/Spyder/00_WirnikApp/docs/ext/'))
+sys.path.append(os.path.abspath('/home/slawek/Pulpit/Spyder/00_WirnikApp/docs/'))
 
-extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.coverage',
-    'sphinx.ext.graphviz',
-    'sphinx.ext.doctest',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.todo',
-    'sphinx.ext.coverage',
-    'sphinx.ext.pngmath',
-    'sphinx.ext.ifconfig'
-    ]
+extensions = [ "sphinxtogithub" ]
+# extensions = [
+#     'sphinx.ext.autodoc',
+#     'sphinx.ext.autosummary',
+#     'sphinx.ext.coverage',
+#     'sphinx.ext.graphviz',
+#     'sphinx.ext.doctest',
+#     'sphinx.ext.intersphinx',
+#     'sphinx.ext.todo',
+#     'sphinx.ext.coverage',
+#     'sphinx.ext.pngmath',
+#     'sphinx.ext.ifconfig'
+#     ]
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
