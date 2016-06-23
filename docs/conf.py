@@ -31,19 +31,19 @@ sys.path.insert(0, os.path.abspath('/home/slawek/Pulpit/Spyder/00_WirnikApp/wirn
 # ones.
 sys.path.append(os.path.abspath('/home/slawek/Pulpit/Spyder/00_WirnikApp/docs/'))
 
-extensions = [ "sphinxtogithub" ]
-# extensions = [
-#     'sphinx.ext.autodoc',
-#     'sphinx.ext.autosummary',
-#     'sphinx.ext.coverage',
-#     'sphinx.ext.graphviz',
-#     'sphinx.ext.doctest',
-#     'sphinx.ext.intersphinx',
-#     'sphinx.ext.todo',
-#     'sphinx.ext.coverage',
-#     'sphinx.ext.pngmath',
-#     'sphinx.ext.ifconfig'
-#     ]
+extensions = [
+    "sphinxtogithub",
+    'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.coverage',
+    'sphinx.ext.graphviz',
+    'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.todo',
+    'sphinx.ext.coverage',
+    'sphinx.ext.pngmath',
+    'sphinx.ext.ifconfig'
+    ]
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
