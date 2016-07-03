@@ -24,7 +24,7 @@ Sposób otwierania programów w programie przedstawiony na video:
 
 Dobrym nawykiem jest monitorowanie konsoli Python'a oraz Menedzera Zadan(aktualnie rozpoczetych procesow).
 
-*** Uwaga dla uzytkownikow Windows'a ***
+*** Uwaga dla użytkowników Windows'a ***
 
 Aby wyłączyć graficzne środowisko Calculixa należy najechać kursorem myszki na okienko z rezultatami i wpisać komendę 'quit' lub wybrać opcję QUIT z menu. W przeciwnym razie, program cgx.exe będzie widniał w menedżerze zadań. Problem nie występuje podczas pracy w środowisku Linux.
 
