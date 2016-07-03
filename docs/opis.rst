@@ -1,29 +1,19 @@
-===========================
-Opis użytych funkcji i klas
-===========================
+=====================================
+Dokumentacja plików budujących skrypt
+=====================================
 
 Niniejsza strona zawiera opis funkcji użytych w aplikacji WirnikApp. Uwagę zwrócono przede wszystkim na rdzeń aplikacji napisany przez autora, nie przywiązując większej uwagi do menu graficznego aplikacji stworzonego w PyQt.
 
-wirnikApp.py
-============
+.. toctree::
+   :maxdepth: 3
 
-.. automodule:: wirnikApp
-    :members:
+   TwirnikApp
+   Tmessenger
+   TsenderClass
+   TobjectGeometry
+   TgmshInputFile
+   TgmshClass
+   Tcalculix
 
-messenger.py
-============
 
-.. automodule:: messenger
-    :members:
 
-Przykład kodu zawartego wykorzystanego w pliku 'messenger.py':
-
-.. literalinclude:: ../wirnikApp/messenger.py
-	:language: python
-	:lines: 7, 21-64
-
-senderClass.py
-==============
-
-.. automodule:: senderClass
-    :members:

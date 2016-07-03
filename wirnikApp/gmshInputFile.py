@@ -1,97 +1,99 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Feb 06 19:59:31 2016
-
-@author: Slawek
-
-W tym pliku zawarta jest definicja wirnika ktora zostanie zinterpretowana w
-programie GMSH a nastepnie uzyta jako plik wsadowy w programie Calculix
+W tym pliku zawarta jest definicja wirnika, która zostanie zinterpretowana w programie GMSH, a następnie użyta jako plik wsadowy w programie Calculix.
 """
 import numpy as np
 from gmshClass import Part, PSurface, RSurface
  
 def przygotujPlik(Goniec,frt):
-    """Funkcja sluzaca tworzeniu pliku wsadowego do GMSH'a."""
-    
+    """
+    Idea zawartej procedury polega na zgromadzeniu informacji o budowie geometrii w obiekcie klasy Part. Następnym krokiem jest zamianych uzyskanych danych na polecenia tekstowe, które są zrozumiałe przez program GSMH. Ze względu na skomplikowaną procedurę budowy pliku wsadowego, dodatkowe komentarze są zawarte w niniejszym skrypcie.
+
+    :param Goniec: obiekt zawierający informacje odnośnie wymiarów geometrii, oraz sposobu jej dyskretyzacji.
+    :type Goniec: Sender
+    :param frt: zmienna określająca czy rezultatem przeprowadzanego procesu ma być wizualizacja geometrii czy też obliczenia numeryczne.
+    :type frt: string
+    """
     # Deklaracja zmiennych
     Geo = Goniec.Geo
     Info = Goniec.Info
-    
+
     lop_XYZ = Geo.lopatka_XYZ
     zaokr   = Geo.zaokr
     il_l    = Geo.il_l
     factor  = Info['factor']
+    kat_theta = -Geo.theta
     
-    # Stworz obiekt wirnika zawierajacy wszystkie informacje majace zostac
-    # przeslane do programu GMSH
+    # Stwórz obiekt wirnika zawierąjacy wszystkie informacje mające zostać
+    # przesłane do programu GMSH
     p = Part('wirnik')
     
-    # Stworz kontener na odpowiednie zbiory elementow skonczonych
+    # Stwórz kontener na odpowiednie zbiory elementów skończonych
     Info['indSet'] = {}
     Info['structMesh'] = []
 
-    # Stworz punkt centralny      
-    p.pkt(0.0,0.0,0.0)
+    # Stwórz punkt centralny      
+    p.point(0.0,0.0,0.0)
 #==============================================================================
-#   KOLO ZEWNETRZNE
+#   KOŁO ZEWNETRZNE
 #==============================================================================
-    # Stworz kolo dzieki uzyciu lukow
-    st = p.cnt_st()                     #----> Wstaw wskaznik
-    # Stworz punkt
+    # Stwórz koło dzięki użyciu łuków
+    st = p.prStart()                     #----> Wstaw wskaźnik
+    # Stwórz punkt
     polLop = [0.0,lop_XYZ[0][1]]
-    # Stworz punkty poprzez rotacje pojedynczego punktu
-    p.rotacja(polLop,il_l)
-    # Stworz wektor pktyDKola zawierajacy punkty kola zewnetrznego
-    pktyDKola = p.cnt_fnd(st)           #----> Zwroc wskaznik 
+    # Stwórz punkty poprzez rotacje pojedynczego punktu
+    p.rotation(polLop,il_l)
+    # Stwórz wektor pktyDKola zawierający punkty koła zewnętrznego
+    pktyDKola = p.prEnd(st)             #----> Zwróć wskaźnik 
     
-    st = p.cnt_st()                     #----> Wstaw wskaznik
-    # Stworz kolo uzywajaca punkty zawarte w wektorze pktyDKola
-    p.wieleKol(0,pktyDKola)
-    # Zapisz kolo zewnetrzne w wektorze lukiZewn
-    lukiZewn = p.cnt_fnd(st)            #----> Zwroc wskaznik
+    st = p.prStart()                   #----> Wstaw wskaźnik
+    # Stwórz koło używajac punkty zawarte w wektorze pktyDKola
+    p.manyCircles(0,pktyDKola)
+    # Zapisz koło zewnetrzne w wektorze lukiZewn
+    lukiZewn = p.prEnd(st)            #----> Zwróć wskaźnik
     for i in lukiZewn:
         l_s = i.id
-        # Podziel krawedz na segmenty
+        # Podziel krawędź na segmenty
         podzial = str(int(10.0 * (1./float(factor))))
-        p.t("Transfinite Line {%s} = %s Using Progression 1;" % (l_s,podzial))
+        p.text("Transfinite Line {%s} = %s Using Progression 1;" % (l_s,podzial))
 
 #==============================================================================
-#   Ponizsza geometria zostala stworzona wg podobnego wzorca
+#   Poniższa geometria zostala stworzona wg podobnego wzorca
 #==============================================================================
 #==============================================================================
-#   KOLO WEWNETRZNE
+#   KOŁO WEWNĘTRZNE
 #==============================================================================
     lista = lop_XYZ[-2][0:2]
-    st = p.cnt_st()
-    p.rotacja(lista,il_l)
-    pktyMKola = p.cnt_fnd(st)
+    st = p.prStart()
+    p.rotation(lista,il_l)
+    pktyMKola = p.prEnd(st)
     
-    st = p.cnt_st()
-    p.wieleKol(0,pktyMKola)
-    lukiKola = p.cnt_fnd(st)
+    st = p.prStart()
+    p.manyCircles(0,pktyMKola)
+    lukiKola = p.prEnd(st)
     
 #==============================================================================
-#   PUNKTY POTRZEBNE DO STWORZENIA LOPATKI
+#   PUNKTY POTRZEBNE DO STWORZENIA ŁOPATKI
 #==============================================================================
     lista = lop_XYZ[-1][0:2]
-    st = p.cnt_st()
-    p.rotacja(lista,il_l)
-    pktyObrotu = p.cnt_fnd(st)
+    st = p.prStart()
+    p.rotation(lista,il_l)
+    pktyObrotu = p.prEnd(st)
         
 #==============================================================================
-#   TWORZENIE GEOMETRII LUKOW
+#   TWORZENIE GEOMETRII ŁUKÓW
 #==============================================================================
-    st = p.cnt_st()
-    # Stworz krzywe, do ktorych przyczepiona zostanie lopatka 
+    st = p.prStart()
+    # Stwórz krzywe, do których przyczepiona zostanie łopatka 
     for i in range(len(pktyObrotu)):
-        p.kolo(pktyMKola[i].id,
-               pktyObrotu[i].id,
-                pktyDKola[i].id)
-    # Stworz wektor krzywych
-    lopatki = p.cnt_fnd(st)
+        p.circle(pktyMKola[i].id,
+            pktyObrotu[i].id,
+            pktyDKola[i].id)
+    # Stwórz wektor krzywych
+    lopatki = p.prEnd(st)
 
-    # Dla danej ilosci lopatek stworz petle krawedzi Line Loop a nastepnie
-    # uzyj danej petli krawedzi do stworzenia plaszczyzny Plane Surface   
+    # Dla danej ilości łopatek stwórz pętle krawędzi Line Loop a następnie
+    # użyj danej pętli krawędzi do stworzenia płaszczyzny Plane Surface   
     pow_ind = []
     for i in range(il_l):
         p.lloop(pktyMKola[i].id,
@@ -102,40 +104,33 @@ def przygotujPlik(Goniec,frt):
         pow_ind.append(p['czesci'][-1].id)
 
 #==============================================================================
-#   Tworzenie plaszczyzn w podstawie okregu 
+#   Tworzenie płaszczyzn w podstawie okręgu 
 #==============================================================================
-    # Na tym etapie zostana stworzone linie laczace punkt centralny wirnika
-    # z poczatkiem lopatki. Aby to zrobic, nalezalo okreslic kat theta
-    # przedstawiony w dokumentacji.    
-    t1 = abs(lop_XYZ[-2][1])
-    t2 = np.sqrt(lop_XYZ[-2][0]**2. + t1**2.)
-    kat_theta = - np.arccos(t1/t2)   
-    
-    # Stworz punkty potrzebne do stworzenia najmniejszej srednicy. Proces 
-    # tworzenia rozpocznij z rotacja wstepna rowna katowi theta
-    st = p.cnt_st()
+    # Stwórz punkty potrzebne do określenia najmniejszej średnicy. Proces 
+    # tworzenia rozpocznij z rotacją wstępną równą kątowi theta
+    st = p.prStart()
     malyPkt = [0.0,-Geo.r1]
-    p.rotacja(malyPkt,il_l,theta = kat_theta,z = 0.0)
-    pkty = p.cnt_fnd(st)
+    p.rotation(malyPkt,il_l,theta = kat_theta,z = 0.0)
+    pkty = p.prEnd(st)
     
-    # Stworz okregi na podstawie stworzonych wczesniej punktow
-    st = p.cnt_st()
-    p.wieleKol(0,pkty)
-    wejscie = p.cnt_fnd(st)
-    # Poinformuj program ze wektor 'wejscie' powinien byc wyszczegolniony
-    # w pliku wyjsciom z GMSH'a
+    # Stwórz okręgi na podstawie określonych wcześniej punktów
+    st = p.prStart()
+    p.manyCircles(0,pkty)
+    wejscie = p.prEnd(st)
+    # Poinformuj program o tym że wektor 'wejscie' powinien być wyszczegolniony
+    # w pliku wyjściom z GMSH'a
     p.physical('Line',[i.id for i in wejscie])
     # Dodaj wektor 'wejscie' do czesci informacyjnej gonca
     Info['indSet']['wlot'] = (p['czesci'][-1].id)
     
-    # Polacz liniami odpowiednie punkty
-    st = p.cnt_st()
+    # Połącz liniami odpowiednie punkty
+    st = p.prStart()
     for i in range(il_l):
         p.line([pkty[i].id,pktyMKola[i].id])
-    lnSrod = p.cnt_fnd(st)  
+    lnSrod = p.prEnd(st)  
     
-    # Stworz plaszczyzne podstawy, oraz dodaj informacje o siatce 'quad'
-    # do gonca
+    # Stwórz płaszczyznę podstawy, oraz dodaj informacje o siatce 'quad'
+    # do gońca
     for i in range(il_l):
         t = [wejscie[i].id,
             lnSrod[(i + 1) % (il_l)].id,
@@ -146,46 +141,46 @@ def przygotujPlik(Goniec,frt):
                  -t[2], -t[3]])
         p.psurf(p['czesci'][-1].id)
         id_surf = p['czesci'][-1].id
-        # Dodaj informacje do gonca o siatce quad
+        # Dodaj informacje do gońca o siatce quad
         Info['structMesh'].append(id_surf)
-        # Stworz siatke typu quad i uzyj stopnia zageszczenia 'factor'
-        p.structMesh(t,id_surf,factor)
+        # Stwórz siatkę typu quad i użyj stopnia zagęszczenia 'factor'
+        p.createStructuredMesh(t,id_surf,factor)
     
 #==============================================================================
-#   Utworz zbior zawierajacy elementy podstawy wirnika
+#   Utwórz zbiór zawierający elementy podstawy wirnika
 #==============================================================================
-    # Wyselekcjonuj z posrod wszystkich obiektow w obiekcie Part tylko te, ktore
-    # sa powierzchniami (Plane Surface)
+    # Wyselekcjonuj z pośród wszystkich obiektów w obiekcie Part tylko te,
+    # które są powierzchniami (Plane Surface)
     powPodstawy = filter(lambda x: type(x) == PSurface, p['czesci'])
-    # Stworz obiekty typu Physical dla uzyskanych plaszczyzn    
+    # Stwórz obiekty typu Physical dla uzyskanych płaszczyzn    
     p.physical('Surface',[i.id for i in powPodstawy])
-    # Poinformuj gonca o nazwie obiektu Physical Surface
+    # Poinformuj gońca o nazwie obiektu Physical Surface
     Info['indSet']['podstawa'] = p['czesci'][-1].id
 
 #==============================================================================
-#   Ponizsza geometria zostala tworzona wg wzorca przedstawionego wczesniej.
-#   Ewentualne zmiana zostana uwzglednione w postaci komentarza    
+#   Poniższa geometria została stworzona wg wzorca przedstawionego wcześniej.
+#   Ewentualne zmiany zostaną uwzględnione w postaci komentarza    
 #==============================================================================
 #==============================================================================
-#   Tworzenie gornej czesci wirnika
+#   Tworzenie górnej części wirnika
 #==============================================================================
     pktGorneL = []
     for i in lop_XYZ[:-1]:
-        st = p.cnt_st()
+        st = p.prStart()
         rt_pkt = [i[0],i[1]]
-        p.rotacja(punkt = rt_pkt, iloscPunktow = il_l, z=i[2])
-        p.pkt(i[0],i[1],i[2])
-        pktGorneL.append(p.cnt_fnd(st))
+        p.rotation(punkt = rt_pkt, iloscPunktow = il_l, z=i[2])
+        p.point(i[0],i[1],i[2])
+        pktGorneL.append(p.prEnd(st))
     pktGorneL = (np.array(pktGorneL)).transpose()
 
     bspls = []
     for i in range(il_l):
         p1 = pktGorneL[i][0]
         p6 = pktGorneL[i][-1]
-        st = p.cnt_st()
-        # Stworz splajn
+        st = p.prStart()
+        # Stwórz splajn
         p.spline([j.id for j in pktGorneL[i]])
-        bspls.append(p.cnt_fnd(st)[0])
+        bspls.append(p.prEnd(st)[0])
         bs_ind = p['czesci'][-1].id
         
         p.line([p1.id,pktyDKola[i].id])
@@ -199,37 +194,37 @@ def przygotujPlik(Goniec,frt):
         
         surf_id = p['czesci'][-1].id
         Info['structMesh'].append(surf_id)
-        p.structMesh([lopatki[i].id, l1, bs_ind, l2],surf_id,factor)
+        p.createStructuredMesh([lopatki[i].id, l1, bs_ind, l2],surf_id,factor)
 
-    p.pkt(0.0,0.0,lop_XYZ[-2][2])
+    p.point(0.0,0.0,lop_XYZ[-2][2])
     up_ind = p['czesci'][-1].id
    
-    p.pkt(0.0,0.0,lop_XYZ[0][2])
+    p.point(0.0,0.0,lop_XYZ[0][2])
     dn_ind = p['czesci'][-1].id
     
 #==============================================================================
-#   Stworz zbior i poinformuj gonca
+#   Stwórz zbiór i poinformuj gońca
 #==============================================================================
     powLopatek = filter(lambda x: type(x) == RSurface, p['czesci'])
     p.physical('Surface',[i.id for i in powLopatek])
     Info['indSet']['lopatki'] = p['czesci'][-1].id
     
 #==============================================================================
-#   Gorna czesci geometrii wirnika - pochylenie
+#   Górna część geometrii wirnika - pochylenie
 #==============================================================================
     k_lacz = []
     for i in range(il_l):
-        p.kolo(pktGorneL[i][-1].id,
-               up_ind,
-               pktGorneL[(i + 1) % (il_l)][-1].id)
+        p.circle(pktGorneL[i][-1].id,
+            up_ind,
+            pktGorneL[(i + 1) % (il_l)][-1].id)
         k_lacz.append(p['czesci'][-1])
         gKolo = p['czesci'][-1].id  
-        p.kolo(pktGorneL[i][0].id,
-               dn_ind,
-               pktGorneL[(i + 1) % (il_l)][0].id)
+        p.circle(pktGorneL[i][0].id,
+            dn_ind,
+            pktGorneL[(i + 1) % (il_l)][0].id)
         dKolo = p['czesci'][-1].id
         podzial = str(int(10.0 * (1./float(factor))))
-        p.t("Transfinite Line {%s} = %s Using Progression 1;" % (dKolo,
+        p.text("Transfinite Line {%s} = %s Using Progression 1;" % (dKolo,
             podzial))
         p.lloop(bspls[i].id,
                 gKolo,
@@ -238,7 +233,7 @@ def przygotujPlik(Goniec,frt):
         p.rsurf([p['czesci'][-1].id])
 
 #==============================================================================
-#   Stworz zbior
+#   Stwórz zbiór
 #==============================================================================
     powGZ = filter(lambda x: type(x) == RSurface, p['czesci'])
     ind = len(powLopatek)
@@ -247,16 +242,16 @@ def przygotujPlik(Goniec,frt):
     Info['indSet']['g_zew'] = p['czesci'][-1].id
 
 #==============================================================================
-#   Gorna czesci geometrii wirnika - zaokraglenie
+#   Górna cześć geometrii wirnika - zaokrąglenie
 #==============================================================================    
     top_pkt = []
     for i in zaokr:
-        st = p.cnt_st()
-        p.rotacja([i[0],i[1]],il_l,z=i[2],theta=kat_theta)
-        top_pkt.append(p.cnt_fnd(st))
+        st = p.prStart()
+        p.rotation([i[0],i[1]],il_l,z=i[2],theta=kat_theta)
+        top_pkt.append(p.prEnd(st))
     top_pkt = (np.array(top_pkt)).transpose()
 
-    p.pkt(0.0,0.0,zaokr[-1][2])
+    p.point(0.0,0.0,zaokr[-1][2])
     up_ind = p['czesci'][-1].id
    
     spline_v = []
@@ -267,9 +262,9 @@ def przygotujPlik(Goniec,frt):
         p.spline(temp)
         spline_v.append(p['czesci'][-1])
         
-        p.kolo(top_pkt[i][-1].id,
-               up_ind,
-               top_pkt[(i + 1) % (il_l)][-1].id)
+        p.circle(top_pkt[i][-1].id,
+            up_ind,
+            top_pkt[(i + 1) % (il_l)][-1].id)
         kolo_hu.append(p['czesci'][-1])
 
     for i in range(il_l):
@@ -281,10 +276,10 @@ def przygotujPlik(Goniec,frt):
         p.rsurf([p['czesci'][-1].id])
         id_surf = p['czesci'][-1].id
         Info['structMesh'].append(id_surf)
-        p.structMesh(t,id_surf,factor)
+        p.createStructuredMesh(t,id_surf,factor)
      
 #==============================================================================
-#   Stworz Zbior
+#   Stwórz zbiór
 #==============================================================================
     powWszystkie = filter(lambda x: (type(x) == RSurface or type(x) == PSurface),
                         p['czesci'])
@@ -298,34 +293,33 @@ def przygotujPlik(Goniec,frt):
     Info['indSet']['all'] = p['czesci'][-1].id
 
 #==============================================================================
-#   Definiuj wlasciwosci geometrii, oraz siatki
+#   Definiuj wlaściwości geometrii, oraz siatki
 #==============================================================================
-    # Wyswietl powierzchnie w GMSH'u    
-    p.t("Geometry.Surfaces = 1;")
-    # Zdefiniuj algorytm uzyty podczas dyskretyzacji - MeshAdapt
-    p.t("Mesh.Algorithm = 1;")
-    # Zdefiniuj stopien uzytych elementow
-    p.t("Mesh.ElementOrder = 2;")
-    # Zdefiniuj wielkosc charakterystyczna sluzaca do poprawienia siatki
-    p.t("Mesh.CharacteristicLengthFactor = " + factor + ";")
-    # Uzyj optymalizacji Lloyd'a w celu poprawienia jakosci siatki
+    # Wyświetl powierzchnie w GMSH'u    
+    p.text("Geometry.Surfaces = 1;")
+    # Zdefiniuj algorytm użyty podczas dyskretyzacji - MeshAdapt
+    p.text("Mesh.Algorithm = 1;")
+    # Zdefiniuj stopień użytych elementów
+    p.text("Mesh.ElementOrder = 2;")
+    # Zdefiniuj wielkość charakterystyczną slużąca do poprawienia siatki
+    p.text("Mesh.CharacteristicLengthFactor = " + factor + ";")
+    # Użyj optymalizacji Lloyd'a w celu poprawienia jakości siatki
     # na powierzchniach
-    p.t("Mesh.Lloyd = 1;")
-    # Zapisz grupy elementow skonczonych w pliku wyjsciowym GMSH'a
-    p.t("Mesh.SaveGroupsOfNodes = 1;")
+    p.text("Mesh.Lloyd = 1;")
+    # Zapisz grupy elementow skończonych w pliku wyjsciowym GMSH'a
+    p.text("Mesh.SaveGroupsOfNodes = 1;")
 #==============================================================================
-#   Miejsce w ktorym program rozpoznaje czy geometria ma byc przechowywana w 
-#   w celu jej wyswietlenia czy tez jako plik wsadowy do Calculixa    
+#   Miejsce w ktorym program rozpoznaje czy geometria ma być przechowywana w 
+#   w celu jej wyświetlenia czy tez jako plik wsadowy do Calculixa    
 #==============================================================================
     if frt == 'stl':
-        p.t("Mesh.Format = 10;")
+        p.text("Mesh.Format = 10;")
     if frt == 'inp':
-        p.t("Mesh.Format = 39;")
+        p.text("Mesh.Format = 39;")
     
-    # Zdefiniuj zawartosc pliku wsadowego GMSH'a
-    p.napiszPlikWsadowy()
+    # Zdefiniuj zawartość pliku wsadowego GMSH'a
+    p.writeInputFile()
     Info['Obiekt'] = p
-    
-    return Info
+
 
 

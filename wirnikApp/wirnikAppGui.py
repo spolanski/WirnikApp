@@ -637,13 +637,13 @@ class Ui_MainWindow(object):
         self.prZaokrag.setValidator(fVal)        
         self.dane['n_R'] = self.prZaokrag.text()
         self.prOtworu.setValidator(fVal)        
-        self.dane['n_r1'] = float(self.prOtworu.text())/2.
+        self.dane['n_r1'] = self.prOtworu.text()
         self.prZewn.setValidator(fVal)        
-        self.dane['n_r3'] = float(self.prZewn.text())/2.
+        self.dane['n_r3'] = self.prZewn.text()
         self.prWyl.setValidator(fVal)        
-        self.dane['n_r4'] = float(self.prWyl.text())/2.
+        self.dane['n_r4'] = self.prWyl.text()
         self.prLop.setValidator(fVal)        
-        self.dane['n_r2'] = float(self.prLop.text())/2.
+        self.dane['n_r2'] = self.prLop.text()
         self.mYoung.setValidator(fVal)        
         self.dane['s_myoung'] = self.mYoung.text()
         self.poiss.setValidator(fVal)        

@@ -29,7 +29,7 @@ def main(dane,frt):
 #   Wyślij parametry do funkcji obliczających położenie punktów geometrii
 #==============================================================================
     import objectGeometry
-    objectGeometry.obliczPotrzebneParametry(Goniec)
+    objectGeometry.obliczWymaganeParametry(Goniec)
 #==============================================================================
 #   Stwórz geometrię na podstawie obliczonych parametrów    
 #==============================================================================

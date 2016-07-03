@@ -1,20 +1,25 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jun  5 22:21:10 2016
-
-@author: slawek
+Plik *senderClass.py* zawiera klasy, dzięki którym możliwe jest stworzenie obiektu Gońca zawierającego informacje o analizowanej geometrii. Co więcej dzięki klasie SenderBrain aplikacja będzie potrafiła łączyć się z GMSH'em, oraz Calculix'em.
 """
 import subprocess
 import os, sys
 
 class SenderBrain(object):
-    """Klasa odpowiedzialna za przesylanie polecen do GMSHa i Calculixa, oraz 
-    odbieranie sygnalow zwrotnych z tych programow. Klasa wykorzystuje modul
-    subprocess."""
+    """
+    Klasa odpowiedzialna za przesyłanie poleceń do GMSHa i Calculixa, oraz odbieranie sygnałów zwrotnych z tych programów. Klasa wykorzystuje **subprocess** do komunikowania się z programami zewnętrznymi. Aby zdefiniować obiekt tej klasy *Goniec* powinien zawierać informację o nazwie analizowanego obiektu, oraz ścieżki dostępu do programów GMSH i Calculix.
+
+    :param Sender: obiekt Gońca
+    :type Sender: Sender
+    """
     
     def __init__(self,Sender):
-        """Konstruktor klasy tworzace obiekt pozwalajacy na komunikacje z 
-        oprogramowaniem"""
+        """Konstruktor klasy tworzącej obiekt pozwalający na komunikacje z 
+        oprogramowaniem zewnętrznym.
+        
+        :param Sender: obiekt Gońca
+        :type Sender: Sender
+        """
         # Zdefiniuj analizowany obiekt
         self.part = Sender.Info['Obiekt']
         # Zdefiniuj nazwe analizowanego obiektu
@@ -35,8 +40,14 @@ class SenderBrain(object):
             self.SHELL = False  
         
     def wyslijKomende(self,komenda,output=True):
-        """Metoda dzieki, ktorej mozliwe jest przesylanie wiadomosci do 
-        oprogramowania i odbieranie sygnalow powrotnych"""
+        """
+        Metoda dzięki, której możliwe jest przesyłanie wiadomosci do oprogramowania i odbieranie sygnałów zwrotnych. W celu osiągnięcia tego celu wykorzystany został moduł subprocess.
+
+        :param komenda: komenda jaką użytkownik chciałby uruchomić za pomocą linii kommend danego systemu operacyjnego.
+        :type komena: string
+        :param output: zmienna, dzięki której możliwe jest wyświetlenie sygnału zwrotnego z programu, z którym aplikacja WirnikApp się łączy.
+        :type output: bool
+        """
         
         lines = []
         p = subprocess.Popen(komenda, bufsize=1, stdin=open(os.devnull),
@@ -49,10 +60,17 @@ class SenderBrain(object):
                 lines.append(line)
             p.stdout.close()
             p.wait()
+
         return True
     
     def utworzGeometrie(self, pokazGmsh = True):
-        """Metod sluzaca do tworzenia geometrii w programie GMSH"""
+        """
+        Metoda dzięki, której tworzona jest geometria. Wykonuje ona dwie czynności. Wpierw zostaje stworzony plik *.geo* na podstawie definicji określonej w obiekcie :class:`Geometry` zaimplementowanym w Gońcu. Następnie geometria zostaje zdefiniowana w programie GMSH.
+
+        :param pokazGmsh: zmienna określająca czy GMSH powinien zostać wyświetlony na ekranie
+        :type pokazGmsh: bool
+
+        """
         
         # Stworz plik wsadowy .geo
         with open(self.nazwa + '.geo','w') as f:
@@ -74,10 +92,9 @@ class SenderBrain(object):
             raise ValueError("!!! NIE ZDOLALALEM UTWORZYC GEOMETRII !!!")  
     
     def dyskretyzujGeometrie(self):
-        """Metod, potrzebna do rozpoczecia procesu dyskretyzacji. 
-        Dyskretyzacja sklada sie z dwoch krokow. Najpierw geometria jest 
-        tworzona w GMSHu na podstawie pliku wsadowego, następnie zostaje 
-        zdyskretyzowana i zapisana jako plik msh i inp"""
+        """
+        Metoda, potrzebna do rozpoczęcia procesu dyskretyzacji. Dyskretyzacja składa sie z dwóch kroków. Najpierw geometria jest tworzona w GMSHu na podstawie pliku wsadowego, następnie zostaje zdyskretyzowana i zapisana jako plik *.msh* i *.inp*.
+        """
                
         cmd = self.gmsh + ' ' + self.nazwa + '.geo ' + '-saveall -2'
         print cmd
@@ -92,20 +109,24 @@ class SenderBrain(object):
         self.usunPliki("wirnik.geo_unrolled")
     
     def wizualizacjaObiektu(self):
-        """Proces tworzenia obiektu do wizualizacji sklada sie ze stworzenia
-        geometrii w formacie wrl a nastepnie przekonwertowania jej do postaci
-        stl. Jest mozliwa konwersja bezposrednia do formatu stl, niestety w
-        przypadku uzycia elementow typu hex uzytkownik uzyskuje zlej jakosci
-        wizualizacje"""
+        """
+        Proces tworzenia obiektu do wizualizacji składa sie ze stworzenia geometrii w formacie wrl a nastepnie przekonwertowania jej do postaci *.stl*. Jest możliwa konwersja bezpośrednia do formatu *.stl*, niestety w przypadku użycia elementów typu *hex* użytkownik uzyskuje wizualizacje niskiej jakości.
+
+        """
         cmd = self.gmsh + ' ' + self.nazwa + '.msh ' + '-o ' + self.nazwa + '.wrl -format wrl -0'
-        print cmd
+        #print cmd
         self.wyslijKomende(cmd)
         cmd = self.gmsh + ' ' + self.nazwa + '.wrl ' + '-o ' + self.nazwa + '.stl -format stl -0'
         self.wyslijKomende(cmd)
         self.usunPliki(self.nazwa + '.wrl')
     
     def rozwiazProblem(self,pokazWyniki=False):
-        """Metoda sluzaca wysylaniu pliku do Calculix'a"""
+        """
+        Metoda, dzięki której plik wsadowy *.inp* wysyłany jest do Calculix'a. Program ten automatycznie rozpoczyna proces rozwiązywania zdefiniowanego wcześniej problemu.sluzaca wysylaniu pliku do Calculix'a
+
+        :param pokazWyniki: zmienna określająca czy wyniki z Calculix'a powinny się pojawić automatycznie na ekranie monitora jak tylko zostaną uzyskane
+        :type pokazWyniki: bool
+        """
         cmd = self.ccx_dir + ' ' + self.wd + '/ccxInp'
         self.wyslijKomende(cmd)
         
@@ -116,14 +137,22 @@ class SenderBrain(object):
             self.wyslijKomende(cmd,output = False)
         
     def usunPliki(self,nazwa):
-        """Metoda sluzaca do usuwania zbednych plikow"""
+        """
+        Metoda, dzięki której możliwe jes usunięcie zbędnych plików.
+
+        :param nazwa: nazwa pliku, który powinien zostać usunięty
+        :type nazwa: string
+        """
+
         try:
             os.remove(nazwa)
         except OSError:
             pass
         
     def przygotujSymulacje(self):
-        """Metoda usuwajaca zbedne pliki przed symulacja"""
+        """
+        Metoda usuwająca zbędne pliki przed symulacją, aby nie było problemów z ich nadpisaniem.
+        """
         self.usunPliki('ccxInp.cvg')
         self.usunPliki('ccxInp.dat')
         self.usunPliki('ccxInp.frd')
@@ -132,12 +161,19 @@ class SenderBrain(object):
         self.usunPliki('spooles.out')
 
 class Geometry(object):
-    """Klasa Geometry sluzy do przechowywania wszystkich wielkosci opisujacych 
-    ksztalt geometrii."""
+    """
+    Klasa *Geometry* służy do przechowywania wszystkich wielkości opisujących kształt geometrii.
+    """
 
     def __init__(self): pass
         
     def dodajCeche(self,cecha):
+        """
+        Metoda poszerzająca definicję geometrii o kolejną cechę.
+
+        :param cecha: cecha która ma zostać dodana do definicji analizowanej konstrukcji.
+        :type cecha: float/int
+        """
         self.cecha = cecha
     
     def __str__(self):
@@ -147,9 +183,9 @@ class Geometry(object):
         return t1
        
 class Sender(object):
-    """Klasa Sender sluzy do tworzenia obiektow posiadajacych informacje
-    odnosnie badanego obiektu, ktory bedzie dzielil te informacje dzieki 
-    klasie SenderBrain z oprogramowaniem zewnetrznym"""
+    """
+    Klasa Sender służy do tworzenia obiektów posiadających informacje odnośnie badanego obiektu. Obiekt tej klasy będzie dzielił te informacje dzięki klasie :class:`SenderBrain` z oprogramowaniem zewnętrznym.
+    """
 
     def __init__(self):
         """Konstruktor klasy Sender"""
@@ -159,11 +195,17 @@ class Sender(object):
         self.Info = {}
     
     def pobierzDane(self,dane):
-        """Metoda sluzaca do poprawanego wydobycia danych z GUI"""
-        
+        """
+        Metoda służąca do poprawnego wydobycia danych z GUI.
+
+        :param dane: kontener zawierający definicje pobrany. Kontener powinien zostać przygotowany na etapie pobieranie danych z menu w następujący sposób {'nazwaCechy' : wartość}.
+        :type dane: dictionary
+        """
         temp = {}
         # Przystosuj wyniki
         for key, item in dane.iteritems():
+            if key[0:3] == 'n_r':
+                item = float(item) / 2.0
             temp[key] = str(item)
         
         for key, item in temp.iteritems():
@@ -173,9 +215,11 @@ class Sender(object):
             # Zapisz cechy do kontenera Info
             elif key[0] == 's':
                 self.Info[key[2:]] = item
-        
+
     def testujDane(self):
-        """Metoda ktora umozliwia wstepne testowanie poprawnosci danych"""
+        """
+        Dzięki tej metodzie dane pobrane z menu głównego mogą zostać sprawdzone pod kątem ich poprawności.
+        """
         Info = self.Info        
         for key, item in Info.iteritems():
             if type(item) != str:
