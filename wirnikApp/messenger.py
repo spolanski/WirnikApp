@@ -61,7 +61,7 @@ def main(dane,frt):
         calculix.stworzPlikWsadowy(Goniec)
         # Rozwiąż problem przy użyciu Calculixa i zaprezentuj wyniki
         Brain.rozwiazProblem(pokazWyniki=True)
-    return True
+    return True 
 
 if __name__ == "__main__":
     main()
