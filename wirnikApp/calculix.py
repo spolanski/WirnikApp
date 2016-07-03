@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Mar 12 21:30:32 2016
-
-@author: Slawek
-W tym pliku nastepuje konwersja pliku wsadowego z programu GMSH na plik do 
-programu Calculix
+W tym pliku następuje konwersja pliku wsadowego z programu GMSH na plik do programu Calculix.
 """
 import numpy as np
 import os
 
 def zmianaElem(mesh, stMesh):
-    """Funkcja zmienia forme zapisu elementow na odpowiednia dla Calculixa"""
+    """
+    Funkcja zmienia formę zapisu elementów na odpowiednia dla Calculix'a.
+    """
     np.set_printoptions(threshold='nan')
     quad = []    
     for i in stMesh:
@@ -28,8 +26,7 @@ def zmianaElem(mesh, stMesh):
         
         div = 10
         if len(ar) % div != 0:
-            print "Blad w macierzy"
-            raise ValueError
+            raise ValueError("Blad w macierzy")
         else:
             row = len(ar)/div
               
@@ -45,7 +42,9 @@ def zmianaElem(mesh, stMesh):
     return element
 
 def zmianyWez(nodes):
-    """Funkcja zmienia forme zapisu wezlow na odpowiednia dla Calculixa"""
+    """
+    Funkcja zmienia formę zapisu węzłów na odpowiednia dla Calculix'a
+    """
     nodes = nodes.split("*NODE\n")
     nodes[1] = nodes[1].replace("\n",", ")
     nodes[1] = nodes[1].split(", ")[:-1]
@@ -72,9 +71,11 @@ def zmianyWez(nodes):
     return nodes
 
 def konwertujSiatke(Goniec):
-    """Funkcja pozwala na przygotowanie pliku .inp stworzonego w programie
-    GMSH tak aby mogl zostac uzyty w Calculixie. Funckcja dziala poprawnie
-    dla elementow typu SHELL."""
+    """
+    Funkcja pozwala na przygotowanie pliku *.inp* stworzonego w programie    GMSH, tak aby mógł zostać użyty w Calculixie. Funkcja była testowana na elementach typu SHELL.
+
+    :param Goniec: obiekt Gońca zawierający informacje potrzebne do stworzenia pliku z siatką elementów skończonych.
+    """
     
     # Zdefiniuj zmienne
     wd = os.getcwd()
@@ -134,7 +135,11 @@ def konwertujSiatke(Goniec):
         f.write(text)
 
 def stworzPlikWsadowy(Goniec):
-    """Funkcja sluzaca tworzeniu pliku wsadowego do Calculixa """
+    """
+    Funkcja służąca tworzeniu pliku wsadowego do Calculixa. Również dzięki tej funkcji, wartości pobrane z GUI opisujące warunki brzegowe, oraz obciążenie zostają wyodrębnione z Gońca.
+
+    :param Goniec: obiekt Gońca zawierający informacje potrzebne do stworzenia pliku z siatką elementów skończonych.
+    """
     Info = Goniec.Info
     
     inpFile = """

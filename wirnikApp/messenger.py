@@ -29,7 +29,7 @@ def main(dane,frt):
 #   Wyślij parametry do funkcji obliczających położenie punktów geometrii
 #==============================================================================
     import objectGeometry
-    objectGeometry.obliczPotrzebneParametry(Goniec)
+    objectGeometry.obliczWymaganeParametry(Goniec)
 #==============================================================================
 #   Stwórz geometrię na podstawie obliczonych parametrów    
 #==============================================================================
@@ -61,7 +61,7 @@ def main(dane,frt):
         calculix.stworzPlikWsadowy(Goniec)
         # Rozwiąż problem przy użyciu Calculixa i zaprezentuj wyniki
         Brain.rozwiazProblem(pokazWyniki=True)
-    return True
+    return True 
 
 if __name__ == "__main__":
     main()

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
+
 'wirnikApp.py' jest plikiem, który należy skompilować w celu uruchomienia aplikacji. Zawiera on klasę odpowiedzialną za tworzenie interfejsu graficznego, w tym przede wszystkim widget'u biblioteki VTK. Dzięki temu obiektowi możliwa jest wizualizacja geometrii wirnika.
 """
 import os, sys

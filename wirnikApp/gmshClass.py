@@ -1,20 +1,23 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jun  5 22:17:42 2016
-
-@author: slawek
+Plik gmshClass.py zawiera klasę Part, której obiekty potrzebne są w celu stworzenia pliku wsadowego do GMSH'a.
 """
 from itertools import count
 import numpy as np
 
 class Part(dict):
+    r"""
+    Klasa Part służy do tworzenia obiektów zawierających definicje
+    pozwalające napisać plik wsadowy do programu GMSH.
+
+    :param nazwa: nazwa konstrukcji która będzie analizowana
+    :type nazwa: string
+    """
+
+    def __init__(self,nazwa):
 #==============================================================================
 #     KONSTRUKTOR    
 #==============================================================================
-    def __init__(self,nazwa):
-        """Klasa Part sluzy do tworzenia obiektow zawierajacych definicje
-        pozwalajace napisac plik wsadowy do programu GMSH."""
-        
         # Implementacja automatycznego naliczania powstajacych obiektow
         self.p_ind = count(0)
         self.l_ind = count(1)
@@ -26,28 +29,54 @@ class Part(dict):
         # Kontener zawierajacy definicje geometrii        
         self['czesci'] = []
         # Kontener, ktory zostaje wypelniony po uruchomieniu metody
-        # napiszPlikWsadowy(). Zawiera on caly plik wsadowy do programu GMSH
+        # writeInputFile(). Zawiera on caly plik wsadowy do programu GMSH
         self['txt'] = ''
     
 #==============================================================================
 #     CZESCI GEOMETRII
 #==============================================================================
-    def pkt(self,x,y,z):
-        """Metoda posrednia sluzaca tworzeniu punktow na podstawie
-        wspolrzednych x,y,z"""
+    def point(self,x,y,z):
+        """
+        Metoda pośrednia służąca tworzeniu punktów na podstawie
+        współrzędnych x,y,z
+
+        :param x: współrzędna X punktu
+        :param y: współrzędna Y punktu
+        :param z: współrzędna Z punktu
+        :type x: float
+        :type y: float
+        :type z: float
+        """
         self.p_id = self.p_ind.next()
         p = Point(x,y,z,self.p_id)
         self['czesci'].append(p)
             
-    def kolo(self,x,y,z):
-        """Metoda posrednia sluzaca do stworzenia pojedynczych lukow"""
+    def circle(self,x,y,z):
+        """
+        Metoda pośrednia służąca do stworzenia pojedynczych łuków.
+
+        :param x: indeks początkowego punktu
+        :param y: indeks środkowego punktu
+        :param z: indeks końcowego punktu
+
+        :type x: int
+        :type y: int
+        :type z: int
+        """
         self.l_id = self.l_ind.next()
         k = Circle(x,y,z,self.l_id)
         self['czesci'].append(k)
     
-    def wieleKol(self,srodek,kola):
-        """Metoda posrednia sluzaca do tworzenia okregu na podstawie punktu
-        srodkowego, oraz punktow na obwodzie."""
+    def manyCircles(self,srodek,kola):
+        """
+        Metoda pośrednia służąca do tworzenia okręgu na podstawie punktu
+        środkowego, oraz punktów na obwodzie.
+
+        :param srodek: indeks punktu środkowego
+        :type srodek: int
+        :param kola: lista zawierająca obiekty typu :class:`Point`.
+        :type kola: list
+        """
         n = range(0,len(kola))
         for i in n:
             self.l_id = self.l_ind.next()
@@ -55,39 +84,71 @@ class Part(dict):
                        srodek,
                        kola[(i + 1) % len(kola)].id, self.l_id)
             self['czesci'].append(t)
-    
+
     def line(self,*args):
-        """Metoda posrednia sluzaca do tworzenia obiektow Line"""
+        """
+        Metoda pośrednia służąca do tworzenia obiektów Line.
+
+        :param args: lista zawierająca indeksy punktów, które mają być ze sobą połączone za pomocą linii.
+        :type args: list
+        """
         self.l_id = self.l_ind.next()
         k = Line(self.l_id,args)
         self['czesci'].append(k)
-    
+
     def spline(self,*args):
-        """Metoda posrednia sluzaca do tworzenia obiektow Spline"""
+        """
+        Metoda pośrednia służąca do tworzenia obiektów Spline.
+
+        :param args: lista zawierająca indeksy punktów, które mają być ze sobą połączone za pomocą splajnu.
+        :type args: list
+        """
         self.l_id = self.l_ind.next()
         k = Spline(self.l_id,args)
         self['czesci'].append(k)
-        
+
     def lloop(self,*args):
-        """Metoda posrednia sluzaca do tworzenia obiektow Line Loop"""
+        """
+        Metoda pośrednia służąca do tworzenia obiektów Line Loop.
+
+        :param args: lista zawierająca indeksy, które mają być zawarte w obiekcie LineLoop.
+        :type args: list
+        """
         self.ll_id = self.ll_ind.next()
         k = LLoop(self.ll_id,args)
         self['czesci'].append(k)
-    
+
     def psurf(self,*args):
-        """Metoda posrednia sluzaca do tworzenia obiektow Plane Surface"""
+        """
+        Metoda pośrednia służąca do tworzenia obiektów Plane Surface.
+
+        :param args: lista zawierająca indeks obiektu LineLoop, który służy jako baza do stworzenia powierzchni.
+        :type args: list
+        """
         self.r_id = self.r_ind.next()
         k = PSurface(self.r_id,args)
         self['czesci'].append(k)
-    
+
     def rsurf(self,*args):
-        """Metoda posrednia sluzaca do tworzenia obiektow Ruled Surface"""
+        """
+        Metoda pośrednia służąca do tworzenia obiektów Ruled Surface.
+
+        :param args: lista zawierająca indeks obiektu LineLoop, który służy jako baza do stworzenia powierzchni.
+        :type args: list
+        """
         self.r_id = self.r_ind.next()
         k = RSurface(self.r_id,args)
         self['czesci'].append(k)
 
     def physical(self,nazwa,*args):
-        """Metoda posrednia sluzaca do tworzenia obiektow typu Physical"""
+        """
+        Metoda pośrednia służąca do tworzenia obiektów typu Physical (zbiorów elementów skończonych w pliku wsadowym).
+
+        :param nazwa: nazwa obiektu jaki ma zostać stworzony. Przykładowo, jeżeli nazwa jest równa 'Surface' to zostanie zbiór elementów na płaszczyźnie.
+        :type nazwa: string
+        :param args: lista zawierająca indeksy obiektów (linii lub powierzchni) dla których ma zostać stworzony zbiór.
+        :type args: list
+        """
         self.l_id = self.l_ind.next()
         k = Physical(self.l_id,nazwa,args)
         self['czesci'].append(k)
@@ -95,46 +156,70 @@ class Part(dict):
 #==============================================================================
 #     METODY
 #==============================================================================
-    def t(self,text):
-        """Metoda sluzace do tworzenia komentarzy w pliku wsadowym"""
+    def text(self,text):
+        """
+        Metoda wymagana do implementowania dowolnej komendy lub komentarza w pliku wsadowym.
+
+        :param text: tekst, który zostanie umieszczony w pliku wsadowym
+        :type text: string
+        """
         self['czesci'].append(text+'\n')
     
-    def napiszPlikWsadowy(self):
-        """Metoda sluzaca do stworzenia pliku wsadowego do GMSH'a"""
+    def writeInputFile(self):
+        """
+        Metoda służąca do stworzenia pliku wsadowego do GMSH'a. Procedura polega na wydrukowaniu kontenera zawartego w obiekcie klasy :class:`Part` do pliku.
+        """
         for i in self['czesci']:
             self['txt'] += str(i)
     
-    def cnt_st(self):
-        """Metoda sluzaca do wstawienia wskaznika, dzieki ktoremu uzytkownik
-        moze grupowac powstajace obiekty. Wskaznik zapamietuje dlugosc slownika
-        czesci"""
+    def prStart(self):
+        """
+        Metoda służąca do wstawienia wskaźnika, dzięki któremu użytkownik
+        może grupować powstające obiekty. Wskaźnik zapamiętuje długość słownika
+        części
+
+        :return: zwróć długość słownika zawartego w klasie :class:`Part` w konkretnym momencie kodu.
+        :rtype: int
+        """
         # Ustaw poczatek naliczania
-        cnt_st = len(self['czesci'])
-        # Zwroc wskaznik        
-        return cnt_st
+        prStart = len(self['czesci'])
+        # Zwróć wskaźnik        
+        return prStart
     
-    def cnt_fnd(self,cnt_st):
-        """Metoda dzieki, dzieki ktorej uzyskujemy dostep do poszczegolnych
-        obiektow. Rezultat ten jest otrzymywany poprzez tworzenie wektora
-        obiektow na podstawie indeksu poczatkowego 'cnt_st', oraz indeksu
-        cnt_fnd.'"""
+    def prEnd(self,prStart):
+        """
+        Metoda dzięki, dzięki której uzyskujemy dostęp do poszczególnych
+        obiektów. Rezultat ten jest otrzymywany poprzez tworzenie wektora
+        obiektów na podstawie indeksu początkowego 'prStart', oraz indeksu
+        'prEnd.'
+
+        :param prStart: zmienna określająca długość kontenera w momencie gdy został użyty wskaźnik.
+        :rtype: int
+        """
         
         # Ustaw koniec naliczania
-        cnt_fnd = len(self['czesci'])
+        prEnd = len(self['czesci'])
         # Stworz liste punktow
-        vec = self['czesci'][cnt_st:cnt_fnd]
+        vec = self['czesci'][prStart:prEnd]
         return vec
     
-    def rotacja(self,punkt,iloscPunktow,theta=0.0, z=0.0):
-        """Stworz nowe punkty poprzez rotacje punktu. Dodatkowe opcje:
-        - zmiana wartosci 'z' - zmien wspolrzedna poczatkowa 'z'
-        - zmiana wartosci 'theta' - rozpocznij rotacje z katem poczatkowym
-            roznym od zera
+    def rotation(self,punkt,iloscPunktow,theta=0.0, z=0.0):
+        """
+        Stwórz nowe punkty poprzez rotację punktu wokół punktu (0.0,0.0,0.0). Funkcja dodaje nowo powstałe punkty do obiektu Part. Dodatkowe opcje:
+
+        * zmiana wartości 'z' - zmień współrzędna początkową 'z'
+        * zmiana wartości :math:`\theta` - rozpocznij rotację z kątem początkowym różnym od zera.
+
+        :param punkt: obiekt zawierający trzy współrzędne punktu który ma zostać obrócony.
+        :type punkt: Point / list
+        :param iloscPunktow: ilość współrzędnych, które mają zostać zwrócone.
+        :type iloscPunktow: int
+
         """
         # Podziel 360 stopni na ilosc punktow ktore maja powstac        
         ob = (2*np.pi)/float(iloscPunktow)
 
-        # Funkcja sluzaca rotacji punktow wobec dowolnej osi
+        # Funkcja służąca rotacji punktow wobec dowolnej osi
         def rot(theta,rotPoint):
             x = rotPoint[0]
             z = rotPoint[1]
@@ -146,26 +231,35 @@ class Part(dict):
         for i in range(iloscPunktow):
             temp = [punkt[0], punkt[1]]
             vec = rot(theta,temp)
-            self.pkt(vec[0],vec[1],z)
+            self.point(vec[0],vec[1],z)
             theta += ob
     
-    def structMesh(self,lloop,surf_id,num=1.0):
-        """Metoda sluzaca do stworzenia siatki z elementow typu Quad. Wartosci:
-        - lloop - obiekt LineLoop zawierajacy krawedzie plaszczyzny, ktora ma 
-            zostac zdyskretyzowana
-        - surf_id - indeks plaszczyzny ktora zostanie zdyskretyzowana
-        - num - liczba okreslajaca stopien jakosci siatki
+    def createStructuredMesh(self,lloop,surf_id,num=1.0):
+        """
+        Metoda służąca do stworzenia siatki z elementów typu Quad.
+
+        :param lloop: obiekt zawierający krawędzie płaszczyzny, która ma zostać zdyskretyzowana.
+        :type lloop: LLoop
+        :param surf_id: indeks płaszczyzny, która zostanie zdyskretyzowana.
+        :type surf_id: int
+        :param num: liczba określająca stopień jakości siatki.
+        :type num: float
+
         """       
         lloop = [abs(i) for i in lloop]
         l_s = "{0}, {1}, {2}, {3}".format(*lloop)
+        # Zmienna podzial określa ilość części na które ma zostać podzielona krawędź
         podzial = str(int(10.0 * (1./float(num))))
-        self.t("Transfinite Line {%s} = %s Using Progression 1;" % (l_s,podzial))
-        self.t("Transfinite Surface {%d};" % surf_id)
-        self.t("Recombine Surface {%d};" % surf_id)          
+        self.text("Transfinite Line {%s} = %s Using Progression 1;" % (l_s,podzial))
+        self.text("Transfinite Surface {%d};" % surf_id)
+        self.text("Recombine Surface {%d};" % surf_id)
+
 
 class Point(Part):
-    """Klasa Point zawierajaca definicje punktu odpowiednia do tej zawartej 
-    w programie GMSH"""
+    """
+    Klasa Point zawierająca definicję punktu odpowiednią do tej zawartej 
+    w programie GMSH. W celu stworzenia obiektu Point należy wywołać metodę :func:`point` zawartą w klasie Part.
+    """
 
     def __init__(self,x,y,z,ind):
         self.x = x
@@ -183,8 +277,9 @@ class Point(Part):
         return txt
 
 class Circle(Part):
-    """Klasa Circle zawierajaca definicje okregu odpowiednia do tej zawartej 
-    w programie GMSH"""
+    """
+    Klasa Circle zawierająca definicję okręgu odpowiednią do tej zawartej w programie GMSH. W celu stworzenia obiektu Circle należy wywołać metodę :func:`circle` zawartą w klasie Part.
+    """
     def __init__(self,x,y,z,ind):
         self.x = x
         self.y = y
@@ -202,8 +297,9 @@ class Circle(Part):
         return txt
 
 class Line(Part):
-    """Klasa Line zawierajaca definicje linii odpowiednia do tej zawartej 
-    w programie GMSH"""
+    """
+    Klasa Line zawierająca definicje linii odpowiednią do tej zawartej w programie GMSH. W celu stworzenia obiektu Line należy wywołać metodę :func:`line` zawartą w klasie Part.
+    """
     def __init__(self,ind,*args):
         if type(args[0][0])==list:
             
@@ -228,8 +324,9 @@ class Line(Part):
         return txt
         
 class Spline(Part):
-    """Klasa Spline zawierajaca definicje splajnu odpowiednia do tej zawartej 
-    w programie GMSH"""
+    """
+    Klasa Spline zawierająca definicje splajnu odpowiednią do tej zawartej w programie GMSH. W celu stworzenia obiektu Spline należy wywołać metodę :func:`spline` zawartą w klasie Part.
+    """
     def __init__(self,ind,*args):
         if type(args[0][0])==list:
             
@@ -254,8 +351,9 @@ class Spline(Part):
         return txt
 
 class LLoop(Part):
-    """Klasa LLoop zawierajaca definicje petli krawedzi (Line Loop) odpowiednia
-    do tej zawartej w programie GMSH"""
+    """
+    Klasa LLoop zawierająca definicje obiektu LineLoop odpowiednią do tej zawartej w programie GMSH. W celu stworzenia obiektu LLoop należy wywołać metodę :func:`llop` zawartą w klasie Part.
+    """
     def __init__(self,ind,*args):
         if type(args[0][0])==list:
             
@@ -268,7 +366,7 @@ class LLoop(Part):
         else:
             self.args = str(args[0])[1:-1]
         
-        self.id = ind#self._ids.next()
+        self.id = ind
 
     def __str__(self):
         t = "Line Loop(%d)" % self.id
@@ -280,8 +378,9 @@ class LLoop(Part):
         return txt
 
 class PSurface(Part):
-    """Klasa PSurface zawierajaca definicje plaszczyzny (Plain Surface)
-    odpowiednia do tej zawartej w programie GMSH"""
+    """
+    Klasa PSurface zawierająca definicje płaszczyzny odpowiednią do tej zawartej w programie GMSH. W celu stworzenia obiektu PSurface należy wywołać metodę :func:`psurf` zawartą w klasie Part.
+    """
     def __init__(self,ind,*args):
         if type(args[0][0])==list:
             
@@ -308,8 +407,9 @@ class PSurface(Part):
         return txt
 
 class RSurface(Part):
-    """Klasa RSurface zawierajaca definicje powierzchni zaokraglonej (Ruled
-    Surface) odpowiednia do tej zawartej w programie GMSH"""
+    """
+    Klasa RSurface zawierająca definicje płaszczyzny rozwiniętej odpowiednią do tej zawartej w programie GMSH. W celu stworzenia obiektu RSurface należy wywołać metodę :func:`rsurf` zawartą w klasie Part.
+    """
     def __init__(self,ind,*args):
         if type(args[0][0])==list:
             
@@ -335,10 +435,12 @@ class RSurface(Part):
         return txt
 
 class Physical(Part):
-    """Klasa Physical zawierajaca definicje obiektow typu Physical zawartych
-    w programie GMSH. Dzieki tej klasie mozemy definiowac zbiory plaszczyzn, 
-    ktore powinny byc wyszczegolnione w pliku opisujacym siatke elementow 
-    skonczonych."""
+    """
+    Klasa Physical służy do tworzenia obiektów typu Physical zawartych
+    w programie GMSH. Dzięki tej klasie możemy definiować zbiory płaszczyzn, 
+    które powinny być wyszczególnione w pliku opisującym siatkę elementów 
+    skończonych.
+    """
     def __init__(self,ind,nazwa,*args):
         if type(args[0][0])==list:
             
