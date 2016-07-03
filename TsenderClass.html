@@ -1,0 +1,344 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>senderClass.py &mdash; WirnikApp 1.0.0 - dokumentacja</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="WirnikApp 1.0.0 - dokumentacja" href="index.html"/>
+        <link rel="up" title="Dokumentacja plików budujących skrypt" href="opis.html"/>
+        <link rel="next" title="objectGeometry.py" href="TobjectGeometry.html"/>
+        <link rel="prev" title="messenger.py" href="Tmessenger.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> WirnikApp
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Wprowadzenie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dok.html">Opis struktury programu</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="opis.html">Dokumentacja plików budujących skrypt</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TwirnikApp.html">wirnikApp.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tmessenger.html">messenger.py</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">senderClass.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TobjectGeometry.html">objectGeometry.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TgmshInputFile.html">gmshInputFile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TgmshClass.html">gmshClass.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tcalculix.html">calculix.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Pobierz!</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">WirnikApp</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="opis.html">Dokumentacja plików budujących skrypt</a> &raquo;</li>
+      
+    <li>senderClass.py</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="sources/TsenderClass.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-senderClass">
+<span id="senderclass-py"></span><h1>senderClass.py<a class="headerlink" href="#module-senderClass" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Plik <em>senderClass.py</em> zawiera klasy, dzięki którym możliwe jest stworzenie obiektu Gońca zawierającego informacje o analizowanej geometrii. Co więcej dzięki klasie SenderBrain aplikacja będzie potrafiła łączyć się z GMSH&#8217;em, oraz Calculix&#8217;em.</p>
+<dl class="class">
+<dt id="senderClass.Geometry">
+<em class="property">class </em><code class="descclassname">senderClass.</code><code class="descname">Geometry</code><a class="headerlink" href="#senderClass.Geometry" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa <em>Geometry</em> służy do przechowywania wszystkich wielkości opisujących kształt geometrii.</p>
+<dl class="method">
+<dt id="senderClass.Geometry.dodajCeche">
+<code class="descname">dodajCeche</code><span class="sig-paren">(</span><em>cecha</em><span class="sig-paren">)</span><a class="headerlink" href="#senderClass.Geometry.dodajCeche" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda poszerzająca definicję geometrii o kolejną cechę.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>cecha</strong> (<em>float/int</em>) &#8211; cecha która ma zostać dodana do definicji analizowanej konstrukcji.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="senderClass.Sender">
+<em class="property">class </em><code class="descclassname">senderClass.</code><code class="descname">Sender</code><a class="headerlink" href="#senderClass.Sender" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa Sender służy do tworzenia obiektów posiadających informacje odnośnie badanego obiektu. Obiekt tej klasy będzie dzielił te informacje dzięki klasie <a class="reference internal" href="#senderClass.SenderBrain" title="senderClass.SenderBrain"><code class="xref py py-class docutils literal"><span class="pre">SenderBrain</span></code></a> z oprogramowaniem zewnętrznym.</p>
+<dl class="method">
+<dt id="senderClass.Sender.pobierzDane">
+<code class="descname">pobierzDane</code><span class="sig-paren">(</span><em>dane</em><span class="sig-paren">)</span><a class="headerlink" href="#senderClass.Sender.pobierzDane" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda służąca do poprawnego wydobycia danych z GUI.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>dane</strong> (<em>dictionary</em>) &#8211; kontener zawierający definicje pobrany. Kontener powinien zostać przygotowany na etapie pobieranie danych z menu w następujący sposób {&#8216;nazwaCechy&#8217; : wartość}.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="senderClass.Sender.testujDane">
+<code class="descname">testujDane</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#senderClass.Sender.testujDane" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Dzięki tej metodzie dane pobrane z menu głównego mogą zostać sprawdzone pod kątem ich poprawności.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="senderClass.SenderBrain">
+<em class="property">class </em><code class="descclassname">senderClass.</code><code class="descname">SenderBrain</code><span class="sig-paren">(</span><em>Sender</em><span class="sig-paren">)</span><a class="headerlink" href="#senderClass.SenderBrain" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa odpowiedzialna za przesyłanie poleceń do GMSHa i Calculixa, oraz odbieranie sygnałów zwrotnych z tych programów. Klasa wykorzystuje <strong>subprocess</strong> do komunikowania się z programami zewnętrznymi. Aby zdefiniować obiekt tej klasy <em>Goniec</em> powinien zawierać informację o nazwie analizowanego obiektu, oraz ścieżki dostępu do programów GMSH i Calculix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>Sender</strong> (<a class="reference internal" href="#senderClass.Sender" title="senderClass.Sender"><em>Sender</em></a>) &#8211; obiekt Gońca</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="senderClass.SenderBrain.dyskretyzujGeometrie">
+<code class="descname">dyskretyzujGeometrie</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#senderClass.SenderBrain.dyskretyzujGeometrie" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda, potrzebna do rozpoczęcia procesu dyskretyzacji. Dyskretyzacja składa sie z dwóch kroków. Najpierw geometria jest tworzona w GMSHu na podstawie pliku wsadowego, następnie zostaje zdyskretyzowana i zapisana jako plik <em>.msh</em> i <em>.inp</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senderClass.SenderBrain.przygotujSymulacje">
+<code class="descname">przygotujSymulacje</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#senderClass.SenderBrain.przygotujSymulacje" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda usuwająca zbędne pliki przed symulacją, aby nie było problemów z ich nadpisaniem.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senderClass.SenderBrain.rozwiazProblem">
+<code class="descname">rozwiazProblem</code><span class="sig-paren">(</span><em>pokazWyniki=False</em><span class="sig-paren">)</span><a class="headerlink" href="#senderClass.SenderBrain.rozwiazProblem" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda, dzięki której plik wsadowy <em>.inp</em> wysyłany jest do Calculix&#8217;a. Program ten automatycznie rozpoczyna proces rozwiązywania zdefiniowanego wcześniej problemu.sluzaca wysylaniu pliku do Calculix&#8217;a</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>pokazWyniki</strong> (<em>bool</em>) &#8211; zmienna określająca czy wyniki z Calculix&#8217;a powinny się pojawić automatycznie na ekranie monitora jak tylko zostaną uzyskane</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="senderClass.SenderBrain.usunPliki">
+<code class="descname">usunPliki</code><span class="sig-paren">(</span><em>nazwa</em><span class="sig-paren">)</span><a class="headerlink" href="#senderClass.SenderBrain.usunPliki" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda, dzięki której możliwe jes usunięcie zbędnych plików.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>nazwa</strong> (<em>string</em>) &#8211; nazwa pliku, który powinien zostać usunięty</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="senderClass.SenderBrain.utworzGeometrie">
+<code class="descname">utworzGeometrie</code><span class="sig-paren">(</span><em>pokazGmsh=True</em><span class="sig-paren">)</span><a class="headerlink" href="#senderClass.SenderBrain.utworzGeometrie" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda dzięki, której tworzona jest geometria. Wykonuje ona dwie czynności. Wpierw zostaje stworzony plik <em>.geo</em> na podstawie definicji określonej w obiekcie <a class="reference internal" href="#senderClass.Geometry" title="senderClass.Geometry"><code class="xref py py-class docutils literal"><span class="pre">Geometry</span></code></a> zaimplementowanym w Gońcu. Następnie geometria zostaje zdefiniowana w programie GMSH.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>pokazGmsh</strong> (<em>bool</em>) &#8211; zmienna określająca czy GMSH powinien zostać wyświetlony na ekranie</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="senderClass.SenderBrain.wizualizacjaObiektu">
+<code class="descname">wizualizacjaObiektu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#senderClass.SenderBrain.wizualizacjaObiektu" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Proces tworzenia obiektu do wizualizacji składa sie ze stworzenia geometrii w formacie wrl a nastepnie przekonwertowania jej do postaci <em>.stl</em>. Jest możliwa konwersja bezpośrednia do formatu <em>.stl</em>, niestety w przypadku użycia elementów typu <em>hex</em> użytkownik uzyskuje wizualizacje niskiej jakości.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senderClass.SenderBrain.wyslijKomende">
+<code class="descname">wyslijKomende</code><span class="sig-paren">(</span><em>komenda</em>, <em>output=True</em><span class="sig-paren">)</span><a class="headerlink" href="#senderClass.SenderBrain.wyslijKomende" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda dzięki, której możliwe jest przesyłanie wiadomosci do oprogramowania i odbieranie sygnałów zwrotnych. W celu osiągnięcia tego celu wykorzystany został moduł subprocess.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><ul class="first last simple">
+<li><strong>komenda</strong> &#8211; komenda jaką użytkownik chciałby uruchomić za pomocą linii kommend danego systemu operacyjnego.</li>
+<li><strong>output</strong> (<em>bool</em>) &#8211; zmienna, dzięki której możliwe jest wyświetlenie sygnału zwrotnego z programu, z którym aplikacja WirnikApp się łączy.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="TobjectGeometry.html" class="btn btn-neutral float-right" title="objectGeometry.py" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Tmessenger.html" class="btn btn-neutral" title="messenger.py" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Sławomir Polański.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/translations.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

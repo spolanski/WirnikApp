@@ -1,0 +1,324 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>objectGeometry.py &mdash; WirnikApp 1.0.0 - dokumentacja</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="WirnikApp 1.0.0 - dokumentacja" href="index.html"/>
+        <link rel="up" title="Dokumentacja plików budujących skrypt" href="opis.html"/>
+        <link rel="next" title="gmshInputFile.py" href="TgmshInputFile.html"/>
+        <link rel="prev" title="senderClass.py" href="TsenderClass.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> WirnikApp
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Wprowadzenie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dok.html">Opis struktury programu</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="opis.html">Dokumentacja plików budujących skrypt</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TwirnikApp.html">wirnikApp.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tmessenger.html">messenger.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TsenderClass.html">senderClass.py</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">objectGeometry.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TgmshInputFile.html">gmshInputFile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TgmshClass.html">gmshClass.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tcalculix.html">calculix.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Pobierz!</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">WirnikApp</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="opis.html">Dokumentacja plików budujących skrypt</a> &raquo;</li>
+      
+    <li>objectGeometry.py</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="sources/TobjectGeometry.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-objectGeometry">
+<span id="objectgeometry-py"></span><h1>objectGeometry.py<a class="headerlink" href="#module-objectGeometry" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>W niniejszym pliku zawarte zostały wszystkie funkcje które zostały użyte w celu określenia położenia poszczególnych punktów wirnika. Podczas tej procedury wykorzystany został moduł SymPy.</p>
+<dl class="function">
+<dt id="objectGeometry.obliczWymaganeParametry">
+<code class="descclassname">objectGeometry.</code><code class="descname">obliczWymaganeParametry</code><span class="sig-paren">(</span><em>Goniec</em><span class="sig-paren">)</span><a class="headerlink" href="#objectGeometry.obliczWymaganeParametry" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja mająca na celu określenie położenia punktów głównych wirnika. Są to między innymi punkty określające przekrój poprzeczny wirnika, zakrzywienie łopatki, oraz zaokrąglenie w górnej części konstrukcji.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>Goniec</strong> (<a class="reference internal" href="TsenderClass.html#senderClass.Sender" title="senderClass.Sender"><em>Sender</em></a>) &#8211; obiekt Gońca zawierający informacje wymagane w przygotowaniu analizy numerycznej.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="objectGeometry.wspolrzednePktPrzekroju">
+<code class="descclassname">objectGeometry.</code><code class="descname">wspolrzednePktPrzekroju</code><span class="sig-paren">(</span><em>geometria</em>, <em>temp</em><span class="sig-paren">)</span><a class="headerlink" href="#objectGeometry.wspolrzednePktPrzekroju" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja służąca do obliczenia niezbędnych wymiarów wirnika. Na poniższym rysunku został przedstawiony przekrój wirnika i punkty określające jego wymiary.</p>
+<div class="align-center figure" id="id1">
+<a class="reference internal image-reference" href="images/przekroj.png"><img alt="Szkic przekroju wirnika" src="images/przekroj.png" style="width: 524.8px; height: 378.4px;" /></a>
+<p class="caption"><span class="caption-text">Szkic przekroju wirnika</span></p>
+</div>
+<p>Punkty te odpowiadają następującym wymiarowm pobranym z GUI:</p>
+<ul class="simple">
+<li>Promień otworu - odl. od osi pionowej do punktu A</li>
+<li>Promień zewnętrzny - odl. od osi pionowej do punktu B</li>
+<li>Promień u wylotu - odl. od osi pion</li>
+<li>Wysokość łopatki - odcinek <span class="math">\(|BC|\)</span></li>
+<li>Kąt alfa - kąt <span class="math">\(\alpha\)</span></li>
+<li>Promień zaokrąglenia - odcinek <span class="math">\(|RD|=|RE|\)</span></li>
+<li>Wysokość pod naddatek - odcinek <span class="math">\(|EF|\)</span></li>
+<li>Wysokość wirnika - odległość od punktu F do osi poziomej.</li>
+</ul>
+<p>W celu stworzenia geometrii w programie GMSH należy obliczyć położenie punktu <span class="math">\(D\)</span>. Punkt ten jest określane poprzez sprawdzenie punktów wspólnych okręglu zakreślonego w punkcie <span class="math">\(R\)</span> o promieniu <span class="math">\(|RD|\)</span> z prostą przechodzącą przez punkt <span class="math">\(C\)</span> odchyloną od poziomu o kąt <span class="math">\(\alpha\)</span>. Zadanie to zostało wykonane przy użyciu modułu SymPy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><ul class="first simple">
+<li><strong>geometria</strong> (<a class="reference internal" href="TsenderClass.html#senderClass.Geometry" title="senderClass.Geometry"><em>Geometry</em></a>) &#8211; obiekt klasy Geometry zawierający dane geometryczne wirnika</li>
+<li><strong>temp</strong> (<em>dictionary</em>) &#8211; tymczasowy kontener na dane, użyty w celu przechowywania informacji.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return temp:</th><td class="field-body"><p class="first last">uaktualniony kontener na dane.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="objectGeometry.obliczPunktyKrzywej">
+<code class="descclassname">objectGeometry.</code><code class="descname">obliczPunktyKrzywej</code><span class="sig-paren">(</span><em>geometria</em><span class="sig-paren">)</span><a class="headerlink" href="#objectGeometry.obliczPunktyKrzywej" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja obliczająca wspołrzędne punktów A, B, C łopatki. Algorytm wykorzystuje funckcję <em>fsolve</em> z modułu SciPy w celu rozwiązania równania nieliniowego przedstawionego poniżej. W oparciu o współrzędne wymienionych punktów funkcja <a class="reference internal" href="#objectGeometry.dodajWspolrzedne" title="objectGeometry.dodajWspolrzedne"><code class="xref py py-func docutils literal"><span class="pre">dodajWspolrzedne()</span></code></a> oblicza osiem punktów leżących na krzywiźnie łopatki.</p>
+<div class="align-center figure" id="id2">
+<a class="reference internal image-reference" href="images/lopatka.png"><img alt="Położenie łopatki" src="images/lopatka.png" style="width: 591.5px; height: 508.2px;" /></a>
+<p class="caption"><span class="caption-text">Szkic wirnika w płaszczyźnie XY</span></p>
+</div>
+<p>W celu określenia współrzędnej punktu <span class="math">\(A\)</span> należy wpierw określić kąt <span class="math">\(\theta\)</span>. Kąt można określić następującą zależnością:</p>
+<div class="math">
+\[\begin{split}\delta = \arctan(\tfrac{r-sin\theta}{R-rsin\theta}) \\
+\gamma = \delta + {\beta}_{1} \\
+\gamma + {\beta}_{2} + \theta + \delta = 180^{\circ} \implies {\beta}_{1} + {\beta}_{2} + \theta + 2\cdot\delta = 180^{\circ}\end{split}\]</div>
+<div class="math">
+\[{\beta}_{1} + {\beta}_{2} + \theta + 2\arctan(\tfrac{r-sin\theta}{R-rsin\theta}) - 180^{\circ} = 0\]</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>geometria</strong> (<a class="reference internal" href="TsenderClass.html#senderClass.Geometry" title="senderClass.Geometry"><em>Geometry</em></a>) &#8211; obiekt klasy Geometry zawierający dane geometryczne wirnika</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return pktyLopatki:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">tablica zawierająca punkty znajdujące się na krzywej łopatki.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="objectGeometry.dodajWspolrzedne">
+<code class="descclassname">objectGeometry.</code><code class="descname">dodajWspolrzedne</code><span class="sig-paren">(</span><em>wek</em><span class="sig-paren">)</span><a class="headerlink" href="#objectGeometry.dodajWspolrzedne" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja zawiera opis krzywizny łopatki we współrzędnych parametrycznych. W pierwszym etapie zostają wyznaczone kąty <span class="math">\({\kappa}_{1}\)</span> i <span class="math">\({\kappa}_{2}\)</span>. Następnie tworzona jest tablica zawierająca osiem równoodległych wartości z pomiędzy tych kątów. Tak otrzymane dane zostają użyte przy określaniu punktów leżących na krzywej <span class="math">\(AC\)</span>.</p>
+<div class="align-center figure" id="id3">
+<a class="reference internal image-reference" href="images/kat.png"><img alt="Krzywizna łopatki" src="images/kat.png" style="width: 600.66px; height: 310.86px;" /></a>
+<p class="caption"><span class="caption-text">Szkic krzywizny łopatki</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>wek</strong> (<em>lista zawierająca współrzędne punktów na krzywiźnie łopatki</em>) &#8211; tablica zawierająca położenie punktów <span class="math">\(A\)</span>, <span class="math">\(B\)</span> i <span class="math">\(C\)</span>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="objectGeometry.policzPktyZaokraglenia">
+<code class="descclassname">objectGeometry.</code><code class="descname">policzPktyZaokraglenia</code><span class="sig-paren">(</span><em>geometria</em>, <em>temp</em><span class="sig-paren">)</span><a class="headerlink" href="#objectGeometry.policzPktyZaokraglenia" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja ma na celu obliczenie punktów na krzywej wirnika w górnej jego części (zob. krzywą <span class="math">\(ED\)</span> na rysunku przekroju wirnika). Procedura obliczania punktów na krzywej jest identyczna jak w przypadku funkcji <a class="reference internal" href="#objectGeometry.dodajWspolrzedne" title="objectGeometry.dodajWspolrzedne"><code class="xref py py-func docutils literal"><span class="pre">dodajWspolrzedne()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><ul class="first simple">
+<li><strong>geometria</strong> (<a class="reference internal" href="TsenderClass.html#senderClass.Geometry" title="senderClass.Geometry"><em>Geometry</em></a>) &#8211; obiekt klasy Geometry zawierający dane geometryczne wirnika</li>
+<li><strong>temp</strong> (<em>dictionary</em>) &#8211; tymczasowy kontener na dane, użyty w celu przechowywania informacji.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return kolo_BC:</th><td class="field-body"><p class="first last">obiekt <em>list</em> zawierający punkty leżące na zaokrągleniu w górnej części wirnika.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="TgmshInputFile.html" class="btn btn-neutral float-right" title="gmshInputFile.py" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="TsenderClass.html" class="btn btn-neutral" title="senderClass.py" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Sławomir Polański.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/translations.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

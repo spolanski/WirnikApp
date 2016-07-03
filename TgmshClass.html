@@ -1,0 +1,517 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gmshClass.py &mdash; WirnikApp 1.0.0 - dokumentacja</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="WirnikApp 1.0.0 - dokumentacja" href="index.html"/>
+        <link rel="up" title="Dokumentacja plików budujących skrypt" href="opis.html"/>
+        <link rel="next" title="calculix.py" href="Tcalculix.html"/>
+        <link rel="prev" title="gmshInputFile.py" href="TgmshInputFile.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> WirnikApp
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Wprowadzenie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dok.html">Opis struktury programu</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="opis.html">Dokumentacja plików budujących skrypt</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TwirnikApp.html">wirnikApp.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tmessenger.html">messenger.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TsenderClass.html">senderClass.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TobjectGeometry.html">objectGeometry.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TgmshInputFile.html">gmshInputFile.py</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">gmshClass.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tcalculix.html">calculix.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Galeria</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Pobierz!</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">WirnikApp</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="opis.html">Dokumentacja plików budujących skrypt</a> &raquo;</li>
+      
+    <li>gmshClass.py</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="sources/TgmshClass.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-gmshClass">
+<span id="gmshclass-py"></span><h1>gmshClass.py<a class="headerlink" href="#module-gmshClass" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Plik gmshClass.py zawiera klasę Part, której obiekty potrzebne są w celu stworzenia pliku wsadowego do GMSH&#8217;a.</p>
+<dl class="class">
+<dt id="gmshClass.Part">
+<em class="property">class </em><code class="descclassname">gmshClass.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>nazwa</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa Part służy do tworzenia obiektów zawierających definicje
+pozwalające napisać plik wsadowy do programu GMSH.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>nazwa</strong> (<em>string</em>) &#8211; nazwa konstrukcji która będzie analizowana</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.point">
+<code class="descclassname">Part.</code><code class="descname">point</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.point" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda pośrednia służąca tworzeniu punktów na podstawie
+współrzędnych x,y,z</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>float</em>) &#8211; współrzędna X punktu</li>
+<li><strong>y</strong> (<em>float</em>) &#8211; współrzędna Y punktu</li>
+<li><strong>z</strong> (<em>float</em>) &#8211; współrzędna Z punktu</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.circle">
+<code class="descclassname">Part.</code><code class="descname">circle</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.circle" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda pośrednia służąca do stworzenia pojedynczych łuków.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>int</em>) &#8211; indeks początkowego punktu</li>
+<li><strong>y</strong> (<em>int</em>) &#8211; indeks środkowego punktu</li>
+<li><strong>z</strong> (<em>int</em>) &#8211; indeks końcowego punktu</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.manyCircles">
+<code class="descclassname">Part.</code><code class="descname">manyCircles</code><span class="sig-paren">(</span><em>srodek</em>, <em>kola</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.manyCircles" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda pośrednia służąca do tworzenia okręgu na podstawie punktu
+środkowego, oraz punktów na obwodzie.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><ul class="first last simple">
+<li><strong>srodek</strong> (<em>int</em>) &#8211; indeks punktu środkowego</li>
+<li><strong>kola</strong> (<em>list</em>) &#8211; lista zawierająca obiekty typu <a class="reference internal" href="#gmshClass.Point" title="gmshClass.Point"><code class="xref py py-class docutils literal"><span class="pre">Point</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.line">
+<code class="descclassname">Part.</code><code class="descname">line</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.line" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda pośrednia służąca do tworzenia obiektów Line.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>args</strong> (<em>list</em>) &#8211; lista zawierająca indeksy punktów, które mają być ze sobą połączone za pomocą linii.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.spline">
+<code class="descclassname">Part.</code><code class="descname">spline</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.spline" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda pośrednia służąca do tworzenia obiektów Spline.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>args</strong> (<em>list</em>) &#8211; lista zawierająca indeksy punktów, które mają być ze sobą połączone za pomocą splajnu.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.lloop">
+<code class="descclassname">Part.</code><code class="descname">lloop</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.lloop" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda pośrednia służąca do tworzenia obiektów Line Loop.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>args</strong> (<em>list</em>) &#8211; lista zawierająca indeksy, które mają być zawarte w obiekcie LineLoop.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.psurf">
+<code class="descclassname">Part.</code><code class="descname">psurf</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.psurf" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda pośrednia służąca do tworzenia obiektów Plane Surface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>args</strong> (<em>list</em>) &#8211; lista zawierająca indeks obiektu LineLoop, który służy jako baza do stworzenia powierzchni.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.rsurf">
+<code class="descclassname">Part.</code><code class="descname">rsurf</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.rsurf" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda pośrednia służąca do tworzenia obiektów Ruled Surface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>args</strong> (<em>list</em>) &#8211; lista zawierająca indeks obiektu LineLoop, który służy jako baza do stworzenia powierzchni.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.physical">
+<code class="descclassname">Part.</code><code class="descname">physical</code><span class="sig-paren">(</span><em>nazwa</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.physical" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda pośrednia służąca do tworzenia obiektów typu Physical (zbiorów elementów skończonych w pliku wsadowym).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><ul class="first last simple">
+<li><strong>nazwa</strong> (<em>string</em>) &#8211; nazwa obiektu jaki ma zostać stworzony. Przykładowo, jeżeli nazwa jest równa &#8216;Surface&#8217; to zostanie zbiór elementów na płaszczyźnie.</li>
+<li><strong>args</strong> (<em>list</em>) &#8211; lista zawierająca indeksy obiektów (linii lub powierzchni) dla których ma zostać stworzony zbiór.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.text">
+<code class="descclassname">Part.</code><code class="descname">text</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.text" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda wymagana do implementowania dowolnej komendy lub komentarza w pliku wsadowym.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>text</strong> (<em>string</em>) &#8211; tekst, który zostanie umieszczony w pliku wsadowym</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.writeInputFile">
+<code class="descclassname">Part.</code><code class="descname">writeInputFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.writeInputFile" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda służąca do stworzenia pliku wsadowego do GMSH&#8217;a. Procedura polega na wydrukowaniu kontenera zawartego w obiekcie klasy <a class="reference internal" href="#gmshClass.Part" title="gmshClass.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> do pliku.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.prStart">
+<code class="descclassname">Part.</code><code class="descname">prStart</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.prStart" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda służąca do wstawienia wskaźnika, dzięki któremu użytkownik
+może grupować powstające obiekty. Wskaźnik zapamiętuje długość słownika
+części</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Zwraca:</th><td class="field-body">zwróć długość słownika zawartego w klasie <a class="reference internal" href="#gmshClass.Part" title="gmshClass.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> w konkretnym momencie kodu.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Typ zwracany:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.prEnd">
+<code class="descclassname">Part.</code><code class="descname">prEnd</code><span class="sig-paren">(</span><em>prStart</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.prEnd" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda dzięki, dzięki której uzyskujemy dostęp do poszczególnych
+obiektów. Rezultat ten jest otrzymywany poprzez tworzenie wektora
+obiektów na podstawie indeksu początkowego &#8216;prStart&#8217;, oraz indeksu
+&#8216;prEnd.&#8217;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>prStart</strong> &#8211; zmienna określająca długość kontenera w momencie gdy został użyty wskaźnik.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Typ zwracany:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.rotation">
+<code class="descclassname">Part.</code><code class="descname">rotation</code><span class="sig-paren">(</span><em>punkt</em>, <em>iloscPunktow</em>, <em>theta=0.0</em>, <em>z=0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.rotation" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Stwórz nowe punkty poprzez rotację punktu wokół punktu (0.0,0.0,0.0). Funkcja dodaje nowo powstałe punkty do obiektu Part. Dodatkowe opcje:</p>
+<ul class="simple">
+<li>zmiana wartości &#8216;z&#8217; - zmień współrzędna początkową &#8216;z&#8217;</li>
+<li>zmiana wartości :math:`       heta` - rozpocznij rotację z kątem początkowym różnym od zera.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><ul class="first last simple">
+<li><strong>punkt</strong> (<em>Point / list</em>) &#8211; obiekt zawierający trzy współrzędne punktu który ma zostać obrócony.</li>
+<li><strong>iloscPunktow</strong> (<em>int</em>) &#8211; ilość współrzędnych, które mają zostać zwrócone.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gmshClass.Part.createStructuredMesh">
+<code class="descclassname">Part.</code><code class="descname">createStructuredMesh</code><span class="sig-paren">(</span><em>lloop</em>, <em>surf_id</em>, <em>num=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Part.createStructuredMesh" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda służąca do stworzenia siatki z elementów typu Quad.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><ul class="first last simple">
+<li><strong>lloop</strong> (<a class="reference internal" href="#gmshClass.LLoop" title="gmshClass.LLoop"><em>LLoop</em></a>) &#8211; obiekt zawierający krawędzie płaszczyzny, która ma zostać zdyskretyzowana.</li>
+<li><strong>surf_id</strong> (<em>int</em>) &#8211; indeks płaszczyzny, która zostanie zdyskretyzowana.</li>
+<li><strong>num</strong> (<em>float</em>) &#8211; liczba określająca stopień jakości siatki.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="gmshClass.Point">
+<em class="property">class </em><code class="descclassname">gmshClass.</code><code class="descname">Point</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em>, <em>ind</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Point" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa Point zawierająca definicję punktu odpowiednią do tej zawartej 
+w programie GMSH. W celu stworzenia obiektu Point należy wywołać metodę <code class="xref py py-func docutils literal"><span class="pre">point()</span></code> zawartą w klasie Part.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="gmshClass.Circle">
+<em class="property">class </em><code class="descclassname">gmshClass.</code><code class="descname">Circle</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em>, <em>ind</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Circle" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa Circle zawierająca definicję okręgu odpowiednią do tej zawartej w programie GMSH. W celu stworzenia obiektu Circle należy wywołać metodę <code class="xref py py-func docutils literal"><span class="pre">circle()</span></code> zawartą w klasie Part.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="gmshClass.Line">
+<em class="property">class </em><code class="descclassname">gmshClass.</code><code class="descname">Line</code><span class="sig-paren">(</span><em>ind</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Line" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa Line zawierająca definicje linii odpowiednią do tej zawartej w programie GMSH. W celu stworzenia obiektu Line należy wywołać metodę <code class="xref py py-func docutils literal"><span class="pre">line()</span></code> zawartą w klasie Part.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="gmshClass.Spline">
+<em class="property">class </em><code class="descclassname">gmshClass.</code><code class="descname">Spline</code><span class="sig-paren">(</span><em>ind</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Spline" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa Spline zawierająca definicje splajnu odpowiednią do tej zawartej w programie GMSH. W celu stworzenia obiektu Spline należy wywołać metodę <code class="xref py py-func docutils literal"><span class="pre">spline()</span></code> zawartą w klasie Part.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="gmshClass.LLoop">
+<em class="property">class </em><code class="descclassname">gmshClass.</code><code class="descname">LLoop</code><span class="sig-paren">(</span><em>ind</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.LLoop" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa LLoop zawierająca definicje obiektu LineLoop odpowiednią do tej zawartej w programie GMSH. W celu stworzenia obiektu LLoop należy wywołać metodę <code class="xref py py-func docutils literal"><span class="pre">llop()</span></code> zawartą w klasie Part.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="gmshClass.PSurface">
+<em class="property">class </em><code class="descclassname">gmshClass.</code><code class="descname">PSurface</code><span class="sig-paren">(</span><em>ind</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.PSurface" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa PSurface zawierająca definicje płaszczyzny odpowiednią do tej zawartej w programie GMSH. W celu stworzenia obiektu PSurface należy wywołać metodę <code class="xref py py-func docutils literal"><span class="pre">psurf()</span></code> zawartą w klasie Part.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="gmshClass.RSurface">
+<em class="property">class </em><code class="descclassname">gmshClass.</code><code class="descname">RSurface</code><span class="sig-paren">(</span><em>ind</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.RSurface" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa RSurface zawierająca definicje płaszczyzny rozwiniętej odpowiednią do tej zawartej w programie GMSH. W celu stworzenia obiektu RSurface należy wywołać metodę <code class="xref py py-func docutils literal"><span class="pre">rsurf()</span></code> zawartą w klasie Part.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="gmshClass.Physical">
+<em class="property">class </em><code class="descclassname">gmshClass.</code><code class="descname">Physical</code><span class="sig-paren">(</span><em>ind</em>, <em>nazwa</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshClass.Physical" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa Physical służy do tworzenia obiektów typu Physical zawartych
+w programie GMSH. Dzięki tej klasie możemy definiować zbiory płaszczyzn, 
+które powinny być wyszczególnione w pliku opisującym siatkę elementów 
+skończonych.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Tcalculix.html" class="btn btn-neutral float-right" title="calculix.py" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="TgmshInputFile.html" class="btn btn-neutral" title="gmshInputFile.py" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Sławomir Polański.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/translations.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
