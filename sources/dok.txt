@@ -2,6 +2,20 @@
 Opis struktury programu
 =======================
 
-Program jest wykonywany według schematu przedstawionego poniżej.
+Aplikacja wirnikApp działa w dwóch trybach - wizualizacji geometrii i obliczeń numerycznych. Pierwszy tryb zostaje załączony jak tylko przycisk **Stwórz!** zostaje wciśnięty. W analogiczny sposób zostaje uruchomiony tryb symulacji, lecz po naciśnięciu przycisku **Calculix!** w zakładce monitor. Rysunki poniżej przedstawiają sposób wykonywania programu w zależność od wybranego trybu.
 
+.. figure:: ./image/Wizualizacja.png
+    :align: center
+    :alt: Diagram
+    :figclass: align-center
+    :scale: 95%
 
+    Schemat przedstawiający uruchomienie aplikacji w trybie zmiany wizualizacji.
+
+.. figure:: ./image/Symulacja.png
+    :align: center
+    :alt: Diagram
+    :figclass: align-center
+    :scale: 95%
+
+    Schemat przedstawiający uruchomienie aplikacji w trybie zmiany symulacja.
