@@ -136,7 +136,7 @@
 <dl class="function">
 <dt id="gmshInputFile.przygotujPlik">
 <code class="descclassname">gmshInputFile.</code><code class="descname">przygotujPlik</code><span class="sig-paren">(</span><em>Goniec</em>, <em>frt</em><span class="sig-paren">)</span><a class="headerlink" href="#gmshInputFile.przygotujPlik" title="Stały odnośnik do tej definicji">¶</a></dt>
-<dd><p>Idea zawartej procedury polega na zgromadzeniu informacji o budowie geometrii w obiekcie klasy Part. Następnym krokiem jest zamianych uzyskanych danych na polecenia tekstowe, które są zrozumiałe przez program GSMH. Ze względu na skomplikowaną procedurę budowy pliku wsadowego, dodatkowe komentarze są zawarte w niniejszym skrypcie.</p>
+<dd><p>Idea zawartej procedury polega na zgromadzeniu informacji o budowie geometrii w obiekcie klasy Part. Następnym krokiem jest zamiana uzyskanych danych na polecenia tekstowe, które są zrozumiałe przez program GSMH. Ze względu na skomplikowaną procedurę budowy pliku wsadowego, dodatkowe komentarze są zawarte w niniejszym skrypcie.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -151,6 +151,7 @@
 </table>
 </dd></dl>
 
+<p>Kod zawarty poniżej opisuje proces automatycznego tworzenia geometrii. W celu lepszego zrozumienia konstruowanej części zostały zamieszczone również obrazy z programu GMSH.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">przygotujPlik</span><span class="p">(</span><span class="n">Goniec</span><span class="p">,</span><span class="n">frt</span><span class="p">):</span>
     <span class="c"># Deklaracja zmiennych</span>
     <span class="n">Geo</span> <span class="o">=</span> <span class="n">Goniec</span><span class="o">.</span><span class="n">Geo</span>
@@ -194,8 +195,13 @@
         <span class="c"># Podziel krawędź na segmenty</span>
         <span class="n">podzial</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mf">10.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">factor</span><span class="p">))))</span>
         <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s">&quot;Transfinite Line {</span><span class="si">%s</span><span class="s">} = </span><span class="si">%s</span><span class="s"> Using Progression 1;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">l_s</span><span class="p">,</span><span class="n">podzial</span><span class="p">))</span>
-
-<span class="c">#==============================================================================</span>
+</pre></div>
+</div>
+<div class="align-center figure" id="id1">
+<a class="reference internal image-reference" href="images/pic_1.png"><img alt="images/pic_1.png" src="images/pic_1.png" style="width: 1040.25px; height: 633.65px;" /></a>
+<p class="caption"><span class="caption-text">Stan geometrii w aktualnie wykonywanym kodzie - koło zewnętrzne</span></p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#==============================================================================</span>
 <span class="c">#   Poniższa geometria zostala stworzona wg podobnego wzorca</span>
 <span class="c">#==============================================================================</span>
 <span class="c">#==============================================================================</span>
@@ -210,7 +216,13 @@
     <span class="n">p</span><span class="o">.</span><span class="n">manyCircles</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">pktyMKola</span><span class="p">)</span>
     <span class="n">lukiKola</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">prEnd</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
     
-<span class="c">#==============================================================================</span>
+</pre></div>
+</div>
+<div class="align-center figure" id="id2">
+<a class="reference internal image-reference" href="images/pic_2.png"><img alt="images/pic_2.png" src="images/pic_2.png" style="width: 1040.25px; height: 633.65px;" /></a>
+<p class="caption"><span class="caption-text">Stan geometrii w aktualnie wykonywanym kodzie - koło wewnętrzne</span></p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#==============================================================================</span>
 <span class="c">#   PUNKTY POTRZEBNE DO STWORZENIA ŁOPATKI</span>
 <span class="c">#==============================================================================</span>
     <span class="n">lista</span> <span class="o">=</span> <span class="n">lop_XYZ</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
@@ -240,8 +252,13 @@
                 <span class="o">-</span><span class="n">lopatki</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
         <span class="n">p</span><span class="o">.</span><span class="n">psurf</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s">&#39;czesci&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
         <span class="n">pow_ind</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s">&#39;czesci&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-
-<span class="c">#==============================================================================</span>
+</pre></div>
+</div>
+<div class="align-center figure" id="id3">
+<a class="reference internal image-reference" href="images/pic_3.png"><img alt="images/pic_3.png" src="images/pic_3.png" style="width: 1040.25px; height: 633.65px;" /></a>
+<p class="caption"><span class="caption-text">Stan geometrii w aktualnie wykonywanym kodzie - płaszczyzna między kołem wewnętrznym a zewnętrznym</span></p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#==============================================================================</span>
 <span class="c">#   Tworzenie płaszczyzn w podstawie okręgu </span>
 <span class="c">#==============================================================================</span>
     <span class="c"># Stwórz punkty potrzebne do określenia najmniejszej średnicy. Proces </span>
@@ -294,8 +311,13 @@
     <span class="n">p</span><span class="o">.</span><span class="n">physical</span><span class="p">(</span><span class="s">&#39;Surface&#39;</span><span class="p">,[</span><span class="n">i</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">powPodstawy</span><span class="p">])</span>
     <span class="c"># Poinformuj gońca o nazwie obiektu Physical Surface</span>
     <span class="n">Info</span><span class="p">[</span><span class="s">&#39;indSet&#39;</span><span class="p">][</span><span class="s">&#39;podstawa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s">&#39;czesci&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
-
-<span class="c">#==============================================================================</span>
+</pre></div>
+</div>
+<div class="align-center figure" id="id4">
+<a class="reference internal image-reference" href="images/pic_4.png"><img alt="images/pic_4.png" src="images/pic_4.png" style="width: 1040.25px; height: 633.65px;" /></a>
+<p class="caption"><span class="caption-text">Stan geometrii w aktualnie wykonywanym kodzie - podstawa wirnika</span></p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#==============================================================================</span>
 <span class="c">#   Poniższa geometria została stworzona wg wzorca przedstawionego wcześniej.</span>
 <span class="c">#   Ewentualne zmiany zostaną uwzględnione w postaci komentarza    </span>
 <span class="c">#==============================================================================</span>
@@ -333,8 +355,13 @@
         <span class="n">surf_id</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s">&#39;czesci&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
         <span class="n">Info</span><span class="p">[</span><span class="s">&#39;structMesh&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">surf_id</span><span class="p">)</span>
         <span class="n">p</span><span class="o">.</span><span class="n">createStructuredMesh</span><span class="p">([</span><span class="n">lopatki</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">bs_ind</span><span class="p">,</span> <span class="n">l2</span><span class="p">],</span><span class="n">surf_id</span><span class="p">,</span><span class="n">factor</span><span class="p">)</span>
-
-    <span class="n">p</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="n">lop_XYZ</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="align-center figure" id="id5">
+<a class="reference internal image-reference" href="images/pic_5.png"><img alt="images/pic_5.png" src="images/pic_5.png" style="width: 1040.25px; height: 633.65px;" /></a>
+<p class="caption"><span class="caption-text">Stan geometrii w aktualnie wykonywanym kodzie - łopatki wirnika</span></p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>    <span class="n">p</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="n">lop_XYZ</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
     <span class="n">up_ind</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s">&#39;czesci&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
    
     <span class="n">p</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="n">lop_XYZ</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
@@ -378,8 +405,13 @@
     <span class="n">powGZ</span> <span class="o">=</span> <span class="n">powGZ</span><span class="p">[</span><span class="n">ind</span><span class="p">:]</span>
     <span class="n">p</span><span class="o">.</span><span class="n">physical</span><span class="p">(</span><span class="s">&#39;Surface&#39;</span><span class="p">,[</span><span class="n">i</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">powGZ</span><span class="p">])</span>
     <span class="n">Info</span><span class="p">[</span><span class="s">&#39;indSet&#39;</span><span class="p">][</span><span class="s">&#39;g_zew&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s">&#39;czesci&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
-
-<span class="c">#==============================================================================</span>
+</pre></div>
+</div>
+<div class="align-center figure" id="id6">
+<a class="reference internal image-reference" href="images/pic_6.png"><img alt="images/pic_6.png" src="images/pic_6.png" style="width: 1040.25px; height: 633.65px;" /></a>
+<p class="caption"><span class="caption-text">Stan geometrii w aktualnie wykonywanym kodzie - pochylona powierzchnia w górnej części wirnika</span></p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#==============================================================================</span>
 <span class="c">#   Górna cześć geometrii wirnika - zaokrąglenie</span>
 <span class="c">#==============================================================================    </span>
     <span class="n">top_pkt</span> <span class="o">=</span> <span class="p">[]</span>
@@ -429,8 +461,13 @@
     
     <span class="n">p</span><span class="o">.</span><span class="n">physical</span><span class="p">(</span><span class="s">&#39;Surface&#39;</span><span class="p">,[</span><span class="n">i</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">powWszystkie</span><span class="p">])</span>
     <span class="n">Info</span><span class="p">[</span><span class="s">&#39;indSet&#39;</span><span class="p">][</span><span class="s">&#39;all&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s">&#39;czesci&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
-
-<span class="c">#==============================================================================</span>
+</pre></div>
+</div>
+<div class="align-center figure" id="id7">
+<a class="reference internal image-reference" href="images/pic_7.png"><img alt="images/pic_7.png" src="images/pic_7.png" style="width: 1040.25px; height: 633.65px;" /></a>
+<p class="caption"><span class="caption-text">Stan geometrii w aktualnie wykonywanym kodzie - zaokrąglona powierzchnia w górnej części wirnika</span></p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#==============================================================================</span>
 <span class="c">#   Definiuj wlaściwości geometrii, oraz siatki</span>
 <span class="c">#==============================================================================</span>
     <span class="c"># Wyświetl powierzchnie w GMSH&#39;u    </span>
@@ -454,11 +491,11 @@
         <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s">&quot;Mesh.Format = 10;&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">frt</span> <span class="o">==</span> <span class="s">&#39;inp&#39;</span><span class="p">:</span>
         <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s">&quot;Mesh.Format = 39;&quot;</span><span class="p">)</span>
-    
-    <span class="c"># Zdefiniuj zawartość pliku wsadowego GMSH&#39;a</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">writeInputFile</span><span class="p">()</span>
-    <span class="n">Info</span><span class="p">[</span><span class="s">&#39;Obiekt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span>
 </pre></div>
+</div>
+<div class="align-center figure" id="id8">
+<a class="reference internal image-reference" href="images/pic_8.png"><img alt="images/pic_8.png" src="images/pic_8.png" style="width: 1040.25px; height: 633.65px;" /></a>
+<p class="caption"><span class="caption-text">Stan geometrii w aktualnie wykonywanym kodzie - dyskretyzacja</span></p>
 </div>
 </div>
 

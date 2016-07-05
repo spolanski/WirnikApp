@@ -5,6 +5,92 @@ gmshInputFile.py
 .. automodule:: gmshInputFile
 	:members:
 
+Kod zawarty poniżej opisuje proces automatycznego tworzenia geometrii. W celu lepszego zrozumienia konstruowanej części zostały zamieszczone również obrazy z programu GMSH. 
+
 .. literalinclude:: ../wirnikApp/gmshInputFile.py
 	:language: python
-	:lines: 8, 17-328
+	:lines: 8, 17-59
+
+.. figure:: ./image/pic_1.png
+    :align: center
+    :figclass: align-center
+    :scale: 95%
+
+    Stan geometrii w aktualnie wykonywanym kodzie - koło zewnętrzne
+
+.. literalinclude:: ../wirnikApp/gmshInputFile.py
+	:language: python
+	:lines: 60-74
+
+.. figure:: ./image/pic_2.png
+    :align: center
+    :figclass: align-center
+    :scale: 95%
+
+    Stan geometrii w aktualnie wykonywanym kodzie - koło wewnętrzne
+
+.. literalinclude:: ../wirnikApp/gmshInputFile.py
+	:language: python
+	:lines: 75-104
+
+.. figure:: ./image/pic_3.png
+    :align: center
+    :figclass: align-center
+    :scale: 95%
+
+    Stan geometrii w aktualnie wykonywanym kodzie - płaszczyzna między kołem wewnętrznym a zewnętrznym
+
+.. literalinclude:: ../wirnikApp/gmshInputFile.py
+	:language: python
+	:lines: 106-158
+
+.. figure:: ./image/pic_4.png
+    :align: center
+    :figclass: align-center
+    :scale: 95%
+
+    Stan geometrii w aktualnie wykonywanym kodzie - podstawa wirnika
+
+.. literalinclude:: ../wirnikApp/gmshInputFile.py
+	:language: python
+	:lines: 160-198
+
+.. figure:: ./image/pic_5.png
+    :align: center
+    :figclass: align-center
+    :scale: 95%
+
+    Stan geometrii w aktualnie wykonywanym kodzie - łopatki wirnika
+
+.. literalinclude:: ../wirnikApp/gmshInputFile.py
+	:language: python
+	:lines: 199-242
+
+.. figure:: ./image/pic_6.png
+    :align: center
+    :figclass: align-center
+    :scale: 95%
+
+    Stan geometrii w aktualnie wykonywanym kodzie - pochylona powierzchnia w górnej części wirnika
+
+.. literalinclude:: ../wirnikApp/gmshInputFile.py
+	:language: python
+	:lines: 244-293
+
+.. figure:: ./image/pic_7.png
+    :align: center
+    :figclass: align-center
+    :scale: 95%
+
+    Stan geometrii w aktualnie wykonywanym kodzie - zaokrąglona powierzchnia w górnej części wirnika
+
+.. literalinclude:: ../wirnikApp/gmshInputFile.py
+	:language: python
+	:lines: 295-318
+
+.. figure:: ./image/pic_8.png
+    :align: center
+    :figclass: align-center
+    :scale: 95%
+
+    Stan geometrii w aktualnie wykonywanym kodzie - dyskretyzacja

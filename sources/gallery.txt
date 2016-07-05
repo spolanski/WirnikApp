@@ -1,7 +1,7 @@
 Galeria
 =======
 
-W niniejszej galerii zaprezentowany został interfejs graficzny programu, oraz wyniki uzyskanie dzięki wykorzystaniu GMSH'a i Calculix'a.
+W niniejszej galerii zaprezentowany został interfejs graficzny programu, oraz wyniki uzyskane dzięki wykorzystaniu GMSH'a i Calculix'a.
 
 .. figure:: ./image/main.png
     :align: center
