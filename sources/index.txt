@@ -8,7 +8,7 @@ Witam w dokumentacji WirnikApp!
 
 WirnikApp jest aplikacją wykorzystującą Metodę Elementów Skończonych w celu określenia stanu naprężeń, oraz przemieszczenia wirnika promieniowego w czasie jego pracy. Program posiada własny interfejs graficzny, w którym możliwe jest zdefiniowanie geometrii, a także ustalenie ilości obrotów wirnika w jednostce czasu.
 
-Główną zal skryptu jest fakt, iż komunikuje się on z programami GMSH, oraz Calculix. Dzięki zastosowaniu tak wydajnego generatora siatki i rzetelnego solver'a, otrzymane rezultaty są satysfakcjonujące przy jednocześnie krótkim czasie obliczeń.
+Główną zalet skryptu jest fakt, iż komunikuje się on z programami GMSH, oraz Calculix. Dzięki zastosowaniu tak wydajnego generatora siatki i rzetelnego solver'a, otrzymane rezultaty są satysfakcjonujące przy jednocześnie krótkim czasie obliczeń.
 
 Zawartość:
 
